@@ -1,0 +1,252 @@
+html {
+  font-size: 14px;
+}
+
+.app {
+  text-align: center;
+  font-size: 1.125rem;
+}
+
+.app img {
+  max-width: 100%;
+}
+
+.app .default {
+  cursor: default !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.app .color-point {
+  color: #fbba00;
+}
+
+.app .color-f19d00 {
+  color: #f19d00;
+}
+
+.app .btn-point {
+  background: #fbba00;
+  color: #000;
+  border-radius: 3rem;
+  font-size: 2rem;
+  font-weight: 700;
+  padding: 0;
+  height: 4.375rem;
+  line-height: calc(4.375rem - 2px);
+  width: 12.5rem;
+}
+
+.app .btn-point.rect {
+  border-radius: 4px;
+  padding: 0 4.875rem;
+  height: 6.75rem;
+  line-height: calc(6.75rem - 2px);
+  max-width: 25.6875rem;
+  width: 100%;
+}
+
+.app h1, .app h2, .app h3, .app h4, .app h5, .app h6 {
+  font-weight: 700;
+  line-height: 4.2rem;
+  font-size: 3rem;
+}
+
+.app header {
+  padding: 7.5rem 0;
+}
+
+.app header h1 {
+  font-size: 2.375rem;
+  margin-bottom: 15px;
+  font-weight: normal;
+}
+
+.app header img {
+  height: 5.875rem;
+}
+
+.app .exchange {
+  background: #fff5de;
+  padding-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.app .exchange img {
+  max-height: 46.8125rem;
+  position: relative;
+  top: 1rem;
+}
+
+.app .text {
+  padding: 6.25rem 0.9375rem;
+  font-size: 2rem;
+}
+
+.app .text h2 {
+  padding-bottom: 3.125rem;
+}
+
+.app .status {
+  padding: 7.5rem 0;
+  background-image: url(img/vegetables.png);
+  background-size: cover;
+  background-position: center;
+}
+
+.app .status h3 {
+  font-size: 3.5rem;
+}
+
+.app .status h3:last-child {
+  margin-top: 6rem;
+}
+
+.app .sns {
+  padding: 7.5rem 0;
+  background: #fff6dc;
+}
+
+.app .sns h4 {
+  margin-bottom: 5rem;
+}
+
+.app .sns .part {
+  padding-top: 5.625rem;
+}
+
+.app .sns .part button.number {
+  padding: 0;
+  width: 3.5rem;
+  height: 3.5rem;
+  line-height: 3.125rem;
+  border: 0;
+  border-radius: 50%;
+  font-size: 2rem;
+}
+
+.app .sns .part .desc {
+  font-size: 2rem;
+  padding: 2.625rem 0;
+}
+
+.app .sns .part .desc > .wrapper {
+  padding: 0 0.625rem;
+}
+
+.app .sns .part .desc > .arrow {
+  position: relative;
+  padding-top: 1rem;
+}
+
+.app .sns .part .desc > .arrow img {
+  position: absolute;
+}
+
+.app .sns .part .desc > .img {
+  padding: 2.5rem 3.125rem;
+}
+
+.app .sns .part .desc > .img img {
+  max-width: 35.5rem;
+}
+
+.app .sns .part.apple .desc > .arrow img {
+  top: -20px;
+  left: 50%;
+  margin-left: 20rem;
+  width: 10.10375rem;
+}
+
+.app .sns .part.onion .desc > .arrow img {
+  top: -20px;
+  left: 50%;
+  margin-left: -27rem;
+  width: 4rem;
+}
+
+.app .sns .part.last {
+  font-size: 2rem;
+  padding-bottom: 3.125rem;
+}
+
+.app .community {
+  padding: 10rem 0 0 0;
+}
+
+.app .community .part {
+  padding-bottom: 9.375rem;
+}
+
+.app .community .part h5 {
+  padding-bottom: 3.125rem;
+}
+
+.app .community .part ul {
+  list-style: none;
+  padding: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: left;
+  font-size: 2rem;
+  padding-left: 2rem;
+  padding-right: 0.9375rem;
+}
+
+.app .community .part ul li {
+  margin-top: 0.625rem;
+  padding-left: 3rem;
+  position: relative;
+  background-image: url(./img/checkbox.svg);
+  background-size: 1.875rem 1.875rem;
+  background-position: 0 0.5rem;
+  background-repeat: no-repeat;
+}
+
+.app .intro {
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  padding-bottom: 11.25rem;
+  font-size: 2rem;
+  line-height: 3.10375rem;
+}
+
+.app footer {
+  background: #ededed;
+  border-top: 1px solid #dedede;
+  padding: 6.25rem 0;
+  font-size: 2rem;
+}
+
+.app footer .links {
+  padding-top: 3.125rem;
+}
+
+.app footer .links a {
+  display: inline-block;
+  padding: 0 0.625rem;
+}
+
+.app footer .links a img {
+  width: 5rem;
+  height: 5rem;
+}
+
+@media (max-width: 1600px) {
+  html {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 1199px) {
+  html {
+    font-size: 8px;
+  }
+  .app .status {
+    background: #fff6dc;
+  }
+  .app .sns {
+    background: none;
+  }
+}
+/*# sourceMappingURL=style.css.map */
