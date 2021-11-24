@@ -47,7 +47,6 @@ html {
 }
 
 .app h1, .app h2, .app h3, .app h4, .app h5, .app h6 {
-  font-weight: 700;
   line-height: 4.2rem;
   font-size: 3rem;
 }
