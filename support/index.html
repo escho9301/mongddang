@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>몽땅식탁 고객지원</title>
+    <meta name="description" content="몽땅식탁 - 레시피 추천 앱 고객지원 및 문의">
+    <link rel="icon" href="../img/favicon.ico">
+    <style>
+        :root { --point: #fbba00; }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
+            color: #222; line-height: 1.7; background: #fffdf5;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+        header {
+            text-align: center; padding: 64px 20px 48px; background: #fff6dc;
+        }
+        header img { height: 56px; margin-bottom: 16px; }
+        header h1 { font-size: 28px; font-weight: 800; }
+        header p { margin-top: 10px; color: #666; font-size: 16px; }
+        section { padding: 40px 0; border-bottom: 1px solid #f0ead5; }
+        section:last-of-type { border-bottom: 0; }
+        h2 { font-size: 20px; font-weight: 700; margin-bottom: 18px; }
+        .contact-btn {
+            display: inline-block; background: var(--point); color: #000;
+            font-weight: 700; font-size: 17px; text-decoration: none;
+            padding: 16px 32px; border-radius: 12px; margin-top: 8px;
+        }
+        .contact-sub { margin-top: 12px; color: #888; font-size: 14px; }
+        .faq { margin-bottom: 22px; }
+        .faq:last-child { margin-bottom: 0; }
+        .faq .q { font-weight: 700; margin-bottom: 6px; }
+        .faq .q::before { content: "Q. "; color: var(--point); }
+        .faq .a { color: #555; }
+        footer { text-align: center; padding: 36px 20px 60px; color: #999; font-size: 14px; }
+        footer a { color: #777; text-decoration: none; margin: 0 8px; }
+        footer .links { margin-bottom: 14px; }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="../img/logo.svg" alt="몽땅식탁 로고">
+        <h1>몽땅식탁 고객지원</h1>
+        <p>오늘 뭐 먹지? 고민은 몽땅식탁에 맡기세요.</p>
+    </header>
+    <div class="wrap">
+        <section>
+            <h2>문의하기</h2>
+            <p>이용 중 불편하거나 궁금한 점이 있으면 언제든 이메일로 문의해 주세요. 보통 1~2영업일 내에 답변드립니다.</p>
+            <a class="contact-btn" href="mailto:mongddangsigtag@gmail.com">이메일 문의하기</a>
+            <p class="contact-sub">mongddangsigtag@gmail.com</p>
+        </section>
+        <section>
+            <h2>자주 묻는 질문</h2>
+            <div class="faq">
+                <div class="q">로그인이 안 돼요</div>
+                <div class="a">카카오 · 네이버 · Apple 로그인을 다시 시도해 주세요. 계속 안 되면 앱을 최신 버전으로 업데이트하거나, 삭제 후 재설치한 뒤 다시 시도해 주세요.</div>
+            </div>
+            <div class="faq">
+                <div class="q">추천 메뉴가 표시되지 않아요</div>
+                <div class="a">네트워크 연결 상태를 확인해 주세요. 날씨 기반 추천은 위치 권한이 필요할 수 있으니, 기기 설정에서 위치 접근을 허용했는지 확인해 주세요.</div>
+            </div>
+            <div class="faq">
+                <div class="q">계정을 삭제하고 싶어요</div>
+                <div class="a">앱 내 [마이 → 설정]에서 회원 탈퇴(계정 삭제)를 진행할 수 있습니다. 탈퇴 시 계정과 관련 데이터가 삭제됩니다. 직접 진행이 어려우면 위 이메일로 요청해 주세요.</div>
+            </div>
+            <div class="faq">
+                <div class="q">알림을 끄고 싶어요</div>
+                <div class="a">기기의 [설정 → 알림 → 몽땅식탁]에서 푸시 알림을 끌 수 있습니다.</div>
+            </div>
+        </section>
+    </div>
+    <footer>
+        <div class="links">
+            <a href="../terms/privacy.html">개인정보처리방침</a>
+            <a href="../terms/services.html">이용약관</a>
+        </div>
+        <div>© 몽땅식탁 (Mongddangsigtag)</div>
+    </footer>
+</body>
+</html>
