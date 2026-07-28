@@ -280,10 +280,20 @@ ul { list-style: none; }
 .results-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; margin-bottom: 24px; }
 .results-head .head { display: flex; flex-direction: column; gap: 8px; }
 .results-head .note { font-family: var(--font-pre); font-size: 12.5px; color: var(--gray8); }
-.stats-grid { display: flex; justify-content: space-between; gap: 24px; }
+/* Figma 3382:10702 는 alignItems: flex-end — 아이콘 높이가 항목마다 달라도
+   카드 아랫변이 한 줄로 맞고 아이콘만 제각기 솟는다.
+   이게 없으면 위쪽 정렬이 되어 카드가 계단처럼 어긋난다. */
+.stats-grid { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
 .stat-item { flex: 1; display: flex; flex-direction: column; align-items: center; }
-.stat-illust { height: 120px; display: flex; align-items: flex-end; justify-content: center; position: relative; z-index: 2; margin-bottom: -40px; }
-.stat-illust img { max-height: 120px; width: auto; }
+/* Figma 3382:10702 — 아이콘 크기와 카드에 파묻히는 깊이가 항목마다 다르다.
+   일괄 120px/-40px 로 두면 특히 스마일이 80px→120px 로 50% 커진다.
+   PNG 원본 비율이 피그마 프레임과 일치하므로 높이만 지정하면 폭은 따라온다. */
+.stat-illust { display: flex; justify-content: center; position: relative; z-index: 2; }
+.stat-illust img { height: 100%; width: auto; display: block; }
+.stat-item:nth-child(1) .stat-illust { height: clamp(62px, 6.64vw, 101px); margin-bottom: calc(-1 * clamp(24px, 2.63vw, 40px)); }
+.stat-item:nth-child(2) .stat-illust { height: clamp(74px, 7.89vw, 120px); margin-bottom: calc(-1 * clamp(36px, 3.95vw, 60px)); }
+.stat-item:nth-child(3) .stat-illust { height: clamp(50px, 5.26vw, 80px);  margin-bottom: calc(-1 * clamp(24px, 2.63vw, 40px)); }
+.stat-item:nth-child(4) .stat-illust { height: clamp(70px, 7.43vw, 113px); margin-bottom: calc(-1 * clamp(24px, 2.63vw, 40px)); }
 .stat-card {
     background: var(--white); border-radius: 999px; width: 100%; min-height: 160px;
     padding: 24px; display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -414,6 +424,13 @@ ul { list-style: none; }
 .comm-trio .comm-photo { aspect-ratio: 1 / 1; border-radius: 20px; }
 .comm-trio figcaption { text-align: center; font-size: 13px; color: var(--gray8); margin-top: 12px; }
 
+/* Figma 3397:8671 — 트리오 행은 사진 1074 + 간격 29 + 텍스트 337 로 1440 을 정확히 채운다.
+   공용 값(.txt 340, gap 46)을 쓰면 합이 1460 이 되어 20px 넘쳐 텍스트가 아래 줄로 밀린다.
+   flex-basis 0 + grow 를 피그마 비율로 주면 어떤 폭에서도 같은 비율로 나란히 유지된다. */
+.comm-sec .row.trio-row { flex-wrap: nowrap; gap: clamp(16px, 1.97vw, 30px); }
+.comm-sec .row.trio-row .comm-trio { flex: 1074 1 0; max-width: none; min-width: 0; }
+.comm-sec .row.trio-row .txt { flex: 336 1 0; max-width: none; min-width: 0; }
+
 /* ==========================================================================
    문의·협업 (contact)
    ========================================================================== */
@@ -462,6 +479,11 @@ ul { list-style: none; }
 @media (max-width: 1024px) {
     .connect-grid { flex-wrap: wrap; }
     .connect-card { flex: 1 1 40%; }
+    /* 좁은 화면에서는 nowrap 을 풀어 사진 3장 위 / 텍스트 아래로 쌓는다.
+       그대로 두면 텍스트 칸이 23% 로 눌려 한 글자씩 끊긴다. */
+    .comm-sec .row.trio-row { flex-wrap: wrap; }
+    .comm-sec .row.trio-row .comm-trio,
+    .comm-sec .row.trio-row .txt { flex: 1 1 100%; }
 }
 @media (max-width: 960px) {
     .footer-top { gap: 40px; }
