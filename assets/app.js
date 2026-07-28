@@ -338,6 +338,10 @@
         var a = e.target.closest("a[href]");
         if (!a) return;
         if (!TARGET.test(a.getAttribute("href") || "")) return;
+        /* 모달 안의 "새 탭에서 보기"처럼 새 탭 전용으로 만든 링크는 가로채지 않는다.
+           이걸 빼면 그 링크도 같은 문서를 가리키므로 여기서 preventDefault 되어
+           새 탭이 안 열리고 이미 열린 모달만 다시 열린다. */
+        if (a.target === "_blank") return;
         /* 새 탭/새 창으로 열려는 클릭은 그대로 둔다 */
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
         e.preventDefault();
