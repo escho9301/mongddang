@@ -1,0 +1,60 @@
+name: 홈 인스타그램 최신 게시물 자동 갱신
+
+on:
+  schedule:
+    - cron: "30 */6 * * *"   # 6시간마다(UTC) 최신 게시물 확인 — 유튜브 잡과 30분 어긋나게 둔다
+  workflow_dispatch:          # 필요 시 수동 실행
+  push:
+    branches: [main]
+    paths:                    # 스크립트/워크플로 수정 시 즉시 한번 반영
+      - "scripts/fetch-instagram.mjs"
+      - ".github/workflows/instagram.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: instagram-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 인스타 API에서 최신 게시물 반영
+        env:
+          IG_TOKEN: ${{ secrets.IG_TOKEN }}
+        run: node scripts/fetch-instagram.mjs
+
+      - name: 변경분 커밋 & 푸시
+        run: |
+          if [[ -n "$(git status --porcelain index.html)" ]]; then
+            # 인스타 원본은 1080px 이상이라 그대로 쌓으면 저장소가 계속 커진다.
+            # 카드 표시 폭이 ~330px이므로 800px이면 2x 디스플레이에도 충분하다.
+            # index.html 이 바뀐 경우에만 실행한다 — 매번 재압축하면 사진이 같아도
+            # 바이트가 달라져 6시간마다 헛커밋이 쌓인다.
+            if command -v magick >/dev/null 2>&1; then
+              magick mogrify -resize '800x800>' -quality 82 img/ig-[1-4].jpg
+            elif command -v mogrify >/dev/null 2>&1; then
+              mogrify -resize '800x800>' -quality 82 img/ig-[1-4].jpg
+            else
+              echo "ImageMagick 없음 — 원본 크기로 커밋"
+            fi
+
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html img/ig-[1-4].jpg
+            git commit -m "chore: 홈 인스타그램 최신 게시물 자동 갱신 [skip ci]"
+            git push
+            echo "✅ 최신 게시물로 갱신·배포됨"
+          else
+            echo "변경 없음 — 커밋 생략"
+          fi

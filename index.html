@@ -1,209 +1,272 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>몽땅식탁 - 우리 동네 식자재 교환 커뮤니티</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="우리 동네 식자재 교환 커뮤니티">
-    <meta name="keywords" content="몽땅식탁, 식자재">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>몽땅식탁 — 건강한 식문화 커뮤니티</title>
+    <meta name="description" content="혼밥에서 함께 나누는 식탁으로. 소셜 다이닝, 지역 동아리, 맞춤형 원팬 레시피 앱까지 — 음식으로 사람과 지역을 연결하는 식문화 소셜벤처 몽땅식탁.">
+    <link rel="canonical" href="https://www.mongddangsigtag.com/">
+    <link rel="icon" href="img/favicon.ico">
     <meta property="og:type" content="website">
-    <meta property="og:title" content="몽땅식탁 - 우리 동네 식자재 교환 커뮤니티">
-    <meta property="og:description" content="우리 동네 식자재 교환 커뮤니티">
-    <meta property="og:image" content="https://mongddang.co.kr/img/summary.png">
-    <meta property="og:url" content="https://mongddang.co.kr/">
-    <meta property="twitter:url" content="https://mongddang.co.kr/">
-    <meta property="twitter:image" content="https://mongddang.co.kr/img/summary.png">
-    <meta property="twitter:card" content="summary">
-    <meta property="twitter:title" content="몽땅식탁 - 우리 동네 식자재 교환 커뮤니티">
-    <meta property="twitter:description" content="우리 동네 식자재 교환 커뮤니티">
-	<link rel="canonical" href="https://mongddang.co.kr/">
-    <link rel="icon" href="img/favicon.ico" />
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="style.css" />
+    <meta property="og:title" content="몽땅식탁 — 건강한 식문화 커뮤니티">
+    <meta property="og:description" content="혼밥에서 함께 나누는 식탁으로. 음식으로 사람과 지역을 연결하는 식문화 소셜벤처.">
+    <meta property="og:image" content="https://www.mongddangsigtag.com/img/summary.png">
+    <meta property="og:url" content="https://www.mongddangsigtag.com/">
+    <link rel="stylesheet" as="style" crossorigin
+          href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+    <link rel="stylesheet" as="style" crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-    <div class="app">
-        <header>
+    <!-- ===== Header ===== -->
+    <header class="site-header">
+        <div class="container nav">
+            <a class="nav-logo" href="index.html" aria-label="몽땅식탁 홈"><img src="img/logo.svg" alt="몽땅식탁"></a>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active">홈</a></li>
+                <li><a href="about.html">몽땅식탁 소개</a></li>
+                <li class="has-dropdown">
+                    <a href="service.html">서비스 <span class="caret" aria-hidden="true"><svg viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l6 6 6-6"/></svg></span></a>
+                    <div class="dropdown">
+                        <a href="service.html">온라인 서비스</a>
+                        <a href="community.html">오프라인 서비스</a>
+                    </div>
+                </li>
+                <li><a href="contact.html">문의·협업</a></li>
+            </ul>
+            <a class="nav-cta" href="contact.html">몽땅식탁과 협업하기</a>
+            <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span></button>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===== Hero ===== -->
+        <section class="hero">
             <div class="container">
-                <h1>
-                    <b>우리 동네 식자재 교환 커뮤니티</b>
-                </h1>
-                <img src="img/logo.svg" alt="대표 로고" />
+                <div class="hero-photo hero-carousel">
+                    <img class="hero-slide is-active" src="img/hero-1.png" alt="함께 요리하고 식사하는 몽땅식탁 소셜 다이닝 현장" fetchpriority="high">
+                    <img class="hero-slide" src="img/hero-2.png" alt="함께 식재료를 손질하는 소셜 다이닝 현장" loading="lazy">
+                    <img class="hero-slide" src="img/hero-3.png" alt="제철 채소를 손질하며 요리하는 모습" loading="lazy">
+                    <div class="hero-dots" aria-label="히어로 이미지 인디케이터"></div>
+                </div>
             </div>
-        </header>
-        <div class="exchange">
-            <img src="img/exchange.svg" alt="식자재 거래 일러스트" />
-        </div>
-        <div class="text">
+            <div class="hero-band">
+                <img class="hero-band-bg" src="img/hero-band.svg" alt="" aria-hidden="true">
+                <div class="hero-band-inner">
+                    <img class="hero-food" src="img/hero-food.png" alt="" aria-hidden="true">
+                    <p class="l1">혼밥에서 함께 나누는 식탁으로</p>
+                    <p class="l2">건강한 식문화 커뮤니티 몽땅식탁</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 몽땅식탁이 만드는 연결 ===== -->
+        <section class="home-connect">
             <div class="container">
-                <h2>
-                    <div>
-                        <b>이웃과 함께하는</b>
+                <div class="head">
+                    <span class="eyebrow">SERVICES</span>
+                    <h2 class="section-title">몽땅식탁이 만드는 연결</h2>
+                </div>
+                <div class="connect-grid">
+                    <article class="connect-card">
+                        <div class="connect-blob"><img src="img/connect-1.png" alt="함께 요리하는 소셜 다이닝"></div>
+                        <span class="connect-badge">01 소셜 다이닝</span>
+                        <p class="connect-title">함께 요리하고 식사하며 연결되는 따뜻한 한 끼</p>
+                    </article>
+                    <article class="connect-card">
+                        <div class="connect-blob"><img src="img/connect-2.png" alt="지역 동아리 텃밭·요리 활동"></div>
+                        <span class="connect-badge">02 지역 동아리</span>
+                        <p class="connect-title">요리, 텃밭, 대화로 깊어지는 지역 커뮤니티</p>
+                    </article>
+                    <article class="connect-card">
+                        <div class="connect-blob"><img src="img/connect-3.png" alt="온라인 레시피 추천 서비스"></div>
+                        <span class="connect-badge">03 온라인 서비스</span>
+                        <p class="connect-title">맞춤형 원팬 요리 추천, 온라인 소셜 다이닝</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 몽땅식탁 이야기 (Archive) ===== -->
+        <section class="home-archive">
+            <div class="container">
+                <div class="head">
+                    <span class="eyebrow">ARCHIVE</span>
+                    <h2 class="section-title">몽땅식탁 이야기</h2>
+                </div>
+
+                <!-- Instagram -->
+                <div class="arc-block">
+                    <div class="arc-head">
+                        <span class="arc-platform">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                            Instagram
+                        </span>
+                        <a class="arc-more" href="https://www.instagram.com/mongddangsigtag/" target="_blank" rel="noopener">인스타그램에서 보기 <span aria-hidden="true">›</span></a>
                     </div>
-                    <div>
-                        <b>음식물 제로 웨이스트</b>
-                        <span>👌🏻</span><b>!</b>
+                    <div class="insta-grid">
+                        <!-- IG:START (자동 생성 — .github/workflows/instagram.yml / scripts/fetch-instagram.mjs) -->
+                        <a class="insta-card" href="https://www.instagram.com/p/DaKImFuE2f6/" target="_blank" rel="noopener" data-ig="DaKImFuE2f6">
+                            <div class="thumb"><img src="img/ig-1.jpg?v=DaKImFuE2f6" alt="여름은 요리하기 귀찮아지는 계절인 동시에 수분 가득 아삭한 과일과 채소가 많이 나오는 계절이기도 한데요. 불 쓰기 싫어지는 후덥지근한 여름에 제…" loading="lazy"></div>
+                            <p class="date">2026.06.29</p>
+                            <p class="cap">여름은 요리하기 귀찮아지는 계절인 동시에 수분 가득 아삭한 과일과 채소가 많이 나오는 계절이기도 한데요. 불 쓰기 싫어지는 후덥지근한 여름에 제…</p>
+                        </a>
+                        <a class="insta-card" href="https://www.instagram.com/p/DaJ7tkYTH5m/" target="_blank" rel="noopener" data-ig="DaJ7tkYTH5m">
+                            <div class="thumb"><img src="img/ig-2.jpg?v=DaJ7tkYTH5m" alt="2026년이 벌써 절반이나 지났다니….! 몽땅식탁이 상반기 6개월간 사부작 사부작 해온 일들을 모아두고 기록해봅니다 👀 1. 커뮤니티 프로그램…" loading="lazy"></div>
+                            <p class="date">2026.06.29</p>
+                            <p class="cap">2026년이 벌써 절반이나 지났다니….! 몽땅식탁이 상반기 6개월간 사부작 사부작 해온 일들을 모아두고 기록해봅니다 👀 1. 커뮤니티 프로그램…</p>
+                        </a>
+                        <a class="insta-card" href="https://www.instagram.com/p/C63LlIeJf0F/" target="_blank" rel="noopener" data-ig="C63LlIeJf0F">
+                            <div class="thumb"><img src="img/ig-3.jpg?v=C63LlIeJf0F" alt="화창하고 따뜻한 날씨가 계속되는 요즘 ☀️ 상큼하게 에너지 충전해줄 스무디볼로 가벼운 한 끼 챙겨보는 건 어떨까요?" loading="lazy"></div>
+                            <p class="date">2024.05.12</p>
+                            <p class="cap">화창하고 따뜻한 날씨가 계속되는 요즘 ☀️ 상큼하게 에너지 충전해줄 스무디볼로 가벼운 한 끼 챙겨보는 건 어떨까요?</p>
+                        </a>
+                        <a class="insta-card" href="https://www.instagram.com/p/CyNZPfivx_X/" target="_blank" rel="noopener" data-ig="CyNZPfivx_X">
+                            <div class="thumb"><img src="img/ig-4.jpg?v=CyNZPfivx_X" alt="매일 하는 식사가 이왕이면 즐겁고, 건강하다면 그 자체로 풍요로운 삶이지 않을까요? 몽땅식탁 10번째 모임에서는 각자의 식사 유형을 파악하는 테…" loading="lazy"></div>
+                            <p class="date">2023.10.10</p>
+                            <p class="cap">매일 하는 식사가 이왕이면 즐겁고, 건강하다면 그 자체로 풍요로운 삶이지 않을까요? 몽땅식탁 10번째 모임에서는 각자의 식사 유형을 파악하는 테…</p>
+                        </a>
+                        <!-- IG:END -->
                     </div>
-                </h2>
-                <p>건강한 식생활을 위해 구매한 채소와 과일.</p>
-                <p>혼자 먹기에는 너무 많아 오래 방치하다 </p>
-                <p>결국엔 쓰레기통으로 버려지곤 합니다.</p>
-                <p>우리 집 감자와 이웃 집 양파를 낱개로 </p>
-                <p>서로 교환할 수 있다면? </p>
-                <p>몽땅식탁은 지역을 기반으로 이웃 간의 </p>
-                <p>식재료 교환 서비스를 제안합니다.</p>
+                </div>
+
+                <!-- YouTube -->
+                <div class="arc-block">
+                    <div class="arc-head">
+                        <span class="arc-platform">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+                            YouTube
+                        </span>
+                        <a class="arc-more" href="https://www.youtube.com/channel/UC1zZ-o2dgAro0b_TANsDYgg" target="_blank" rel="noopener">유튜브에서 보기 <span aria-hidden="true">›</span></a>
+                    </div>
+                    <div class="yt-grid">
+                        <!-- YT:START (자동 생성 — .github/workflows/youtube.yml / scripts/fetch-youtube.mjs) -->
+                        <a class="yt-card" href="https://www.youtube.com/watch?v=0o1o51jfTec" target="_blank" rel="noopener">
+                            <div class="thumb"><img src="https://i.ytimg.com/vi/0o1o51jfTec/maxresdefault.jpg" alt="아무리 바빠도 삼치솥밥은 못 참아!" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/0o1o51jfTec/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
+                            <p class="date">2026.07.12</p>
+                            <p class="cap">아무리 바빠도 삼치솥밥은 못 참아!</p>
+                        </a>
+                        <a class="yt-card" href="https://www.youtube.com/watch?v=nc4-a_pO16I" target="_blank" rel="noopener">
+                            <div class="thumb"><img src="https://i.ytimg.com/vi/nc4-a_pO16I/maxresdefault.jpg" alt="한 달 식비 70만원 디자이너의 냉장고" loading="lazy" onerror="this.onerror=null;this.src='https://i.ytimg.com/vi/nc4-a_pO16I/hqdefault.jpg'"><span class="play" aria-hidden="true"></span></div>
+                            <p class="date">2026.06.21</p>
+                            <p class="cap">한 달 식비 70만원 디자이너의 냉장고</p>
+                        </a>
+                        <!-- YT:END -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 함께 만든 식탁 (Results) ===== -->
+        <section class="home-results">
+            <div class="container">
+                <div class="results-head">
+                    <div class="head">
+                        <span class="eyebrow">RESULTS</span>
+                        <h2 class="section-title">함께 만든 식탁</h2>
+                    </div>
+                    <span class="note">2023년 창립 이후 누적 데이터 기준</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-illust"><img src="img/stat-1.png" alt="" aria-hidden="true"></div>
+                        <div class="stat-card"><span class="stat-num">150+</span><span class="stat-label">누적 프로그램 수</span></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-illust"><img src="img/stat-2.png" alt="" aria-hidden="true"></div>
+                        <div class="stat-card"><span class="stat-num">3,000+</span><span class="stat-label">누적 참여자 수</span></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-illust"><img src="img/stat-3.png" alt="" aria-hidden="true"></div>
+                        <div class="stat-card"><span class="stat-num">4.8 / 5</span><span class="stat-label">평균 만족도</span></div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-illust"><img src="img/stat-4.png" alt="" aria-hidden="true"></div>
+                        <div class="stat-card"><span class="stat-num">10+</span><span class="stat-label">협업 기관 수</span></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 주요 파트너 (Partners) ===== -->
+        <section class="home-partners">
+            <div class="container">
+                <div class="head">
+                    <span class="eyebrow">PARTNER</span>
+                    <h2 class="section-title">주요 파트너</h2>
+                </div>
+                <div class="partner-marquee">
+                    <div class="partner-track">
+                        <img src="img/partner-1.png" alt="파트너 기관" loading="lazy">
+                        <img src="img/partner-2.png" alt="파트너 기관" loading="lazy">
+                        <img src="img/partner-3.png" alt="파트너 기관" loading="lazy">
+                        <img src="img/partner-4.png" alt="파트너 기관" loading="lazy">
+                        <img src="img/partner-5.png" alt="파트너 기관" loading="lazy">
+                        <img src="img/partner-6.png" alt="파트너 기관" loading="lazy">
+                        <img src="img/partner-7.png" alt="사단법인 청년문화진흥원" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 협업 CTA ===== -->
+        <section class="home-collab">
+            <div class="container">
+                <div class="collab-banner">
+                    <div class="collab-text">
+                        <span class="eyebrow">COLLABORATION</span>
+                        <h2>함께 건강한 식문화를 만들어요</h2>
+                        <p>지역 프로그램, 식문화 콘텐츠, 커뮤니티 활동 등 몽땅식탁과 다양한 방식으로 협업할 수 있습니다.</p>
+                    </div>
+                    <a class="btn btn-dark" href="contact.html">몽땅식탁과 협업하기 <span class="arrow" aria-hidden="true">→</span></a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="f-brand">
+                    <a class="f-logo" href="index.html" aria-label="몽땅식탁"><img src="img/logo.svg" alt="몽땅식탁"></a>
+                    <p class="f-desc">먹는 것을 통해 사람과 지역을 연결하는<br>식문화 스타트업입니다.<br>온라인과 오프라인 커뮤니티로<br>함께하는 밥상 문화를 만들어갑니다.</p>
+                </div>
+                <div class="f-contact">
+                    <dl>
+                        <dt>대표</dt><dd>조은성</dd>
+                        <dt>사업자등록번호</dt><dd>578-86-03207</dd>
+                        <dt>Contact</dt><dd><a href="mailto:mongddangsigtag@gmail.com">mongddangsigtag@gmail.com</a></dd>
+                        <dt>본사</dt><dd>경기도 고양시 덕양구 화중로 104번길33,<br>28청춘창업소 S동 206호</dd>
+                    </dl>
+                </div>
+                <nav class="f-nav" aria-label="푸터 메뉴">
+                    <a href="index.html">홈</a>
+                    <a href="about.html">몽땅식탁 소개</a>
+                    <a href="service.html">온라인 서비스</a>
+                    <a href="community.html">오프라인 서비스</a>
+                    <a href="contact.html">문의·협업</a>
+                </nav>
+                <div class="f-legal">
+                    <a href="terms/privacy.html">개인정보 처리방침</a>
+                    <a href="terms/services.html">이용약관</a>
+                    <div class="f-sns">
+                        <a href="https://www.instagram.com/mongddangsigtag/" target="_blank" rel="noopener" aria-label="인스타그램">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UC1zZ-o2dgAro0b_TANsDYgg" target="_blank" rel="noopener" aria-label="유튜브">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2023 MONGTTANGSIGTAG. All rights reserved.</span>
             </div>
         </div>
-        <div class="status">
-            <h3>
-                <div>
-                    <b>몽땅식탁과 함께 구해낸</b>
-                </div>
-                <div class="mb-4">
-                    <b>오늘의 식재료</b>
-                    <span>🍊</span>
-                </div>
-                <b id="todayCount" class="color-point">0</b><b>개</b>
-            </h3>
-            <h3>
-                <div class="mb-4">
-                    <b>누적 거래 수</b>
-                </div>
-                <b id="totalCount" class="color-point">0</b><b>건</b>
-            </h3>
-        </div>
-        <div class="sns">
-            <h4>
-                <div>
-                    <b>몽땅식탁 페이스북에서</b>
-                </div>
-                <div>
-                    <b>거래를 원하는 이웃을</b>
-                </div>
-                <div>
-                    <b>찾아보세요</b>
-                    <span>👀</span>
-                </div>
-            </h4>
-            <button class="btn btn-point default">이용방법</button>
-            <div class="part apple">
-                <button class="btn btn-point number default">1</button>
-                <div class="desc">
-                    <div class="wrapper">
-                        <div>몽땅식탁 페이스북 페이지에 거래하고 싶은</div>
-                        <div>식자재 사진과 함께 게시글을 작성합니다.</div>
-                        <div>*입력 항목 : 종류, 수량, 구매일, 원산지, 지역(동네), 거래 희망 식자재</div>
-                        <p><br /></p>
-                        <div>또는, 교환하고 싶은 식자재가 포함된</div>
-                        <div>게시물을 발견했다면 댓글을 달아주세요.</div>
-                    </div>
-                    <div class="arrow d-none d-md-block">
-                        <img src="img/arrow1.svg" alt="화살표" />
-                    </div>
-                    <div class="img">
-                        <img src="img/apple.png" alt="사과 거래" />
-                    </div>
-                </div>
-            </div>
-            <div class="part onion">
-                <button class="btn btn-point number default">2</button>
-                <div class="desc">
-                    <div class="wrapper">
-                        <div>게시물에 댓글이 달리면 이웃과 페이스북 메시지를 통해 <br class="d-none d-md-block" />거래 일시와 장소를 정해요.</div>
-                    </div>
-                    <div class="arrow d-none d-md-block">
-                        <img src="img/arrow2.svg" alt="화살표" />
-                    </div>
-                    <div class="img">
-                        <img src="img/onion.png" alt="양파 거래" />
-                    </div>
-                </div>
-            </div>
-            <div class="part">
-                <button class="btn btn-point number default">3</button>
-                <div class="desc">
-                    <div class="wrapper">약속한 날짜에 각자의 식자재를 교환해요!</div>
-                </div>
-            </div>
-            <div class="part">
-                <button class="btn btn-point number default">4</button>
-                <div class="desc">
-                    <div class="wrapper">
-                        <div>해당 게시물에 댓글로 ‘거래 완료’를 알리고 선물 받기 🎁</div>
-                        <div>(최초 거래 인증 30명 대상)</div>
-                    </div>
-                </div>
-            </div>
-            <div class="part last color-f19d00">
-                <div class="desc">
-                    <div class="wrapper">
-                        오늘도 냉장고에서 잠자고 있는 우리 집 식재료,
-                        <br class="d-none d-sm-block" />
-                        시들기 전 이웃과 교환해보세요!
-                    </div>
-                </div>
-            </div>
-            <a class="btn btn-point rect" href="https://www.facebook.com/groups/mongddang" rel="noopener"
-                target="_blank">이웃 찾기</a>
-        </div>
-        <div class="community">
-            <div class="part">
-                <h5>
-                    <div>
-                        <b>커뮤니티 소식은</b>
-                    </div>
-                    <div>
-                        <b>인스타그램에서!</b>
-                        <span>😊</span>
-                    </div>
-                </h5>
-                <a class="btn btn-point rect" href="https://www.instagram.com/mongddang_table/" rel="noopener"
-                    target="_blank">소식 확인</a>
-            </div>
-            <div class="part">
-                <h5>
-                    <div>
-                        <b>이런 분들,</b>
-                    </div>
-                    <div>
-                        <b>몽땅식탁에 초대해요!</b>
-                        <span>💌</span>
-                    </div>
-                </h5>
-                <ul>
-                    <li>다 먹지 못하고 버려지는 식재료가 아까우신 분들</li>
-                    <li>이웃과 제로 웨이스트를 실천해보고 싶은 분들</li>
-                    <li>어쩔 수 없이 많은 양의 식자재를 구매해야 해서 난감했던 분들</li>
-                    <li>1인 가구를 위한 소포장 식재료는 찾기 어렵고 비싸 구매를 망설였던 분들</li>
-                    <li>환경을 사랑하는 마음으로 무포장 식자재 거래를 지향하는 분들</li>
-                </ul>
-            </div>
-        </div>
-        <div class="intro">
-            몽땅식탁은 가정에서 다 먹지 못하고 버려지는
-            <br class="d-none d-sm-block" />
-            식자재 낭비 문제를 해결하기 위한 커뮤니티입니다.
-            <br class="d-none d-sm-block" />
-            일상에서 실천할 수 있는 자원 선순환과
-            <br class="d-none d-sm-block" />
-            제로 웨이스트를 지향합니다.
-        </div>
-        <footer>
-            <div>몽땅식탁</div>
-            <div>mongddang_table</div>
-            <div class="links">
-                <a href="https://www.facebook.com/groups/mongddang" target="_blank" rel="noopener">
-                    <img src="img/facebook.svg" alt="페이스북" />
-                </a>
-                <a href="https://www.instagram.com/mongddang_table/" target="_blank" rel="noopener">
-                    <img src="img/instagram.svg" alt="인스타그램" />
-                </a>
-            </div>
-        </footer>
-    </div>
-    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
-    <script src="script.js"></script>
+    </footer>
+
+    <script src="assets/app.js"></script>
 </body>
 </html>

@@ -1,0 +1,46 @@
+name: 홈 유튜브 최신 영상 자동 갱신
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"   # 6시간마다(UTC) 최신 영상 확인
+  workflow_dispatch:          # 필요 시 수동 실행
+  push:
+    branches: [main]
+    paths:                    # 스크립트/워크플로 수정 시 즉시 한번 반영
+      - "scripts/fetch-youtube.mjs"
+      - ".github/workflows/youtube.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: youtube-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 체크아웃
+        uses: actions/checkout@v4
+
+      - name: Node 설정
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: RSS에서 최신 영상 반영
+        run: node scripts/fetch-youtube.mjs
+
+      - name: 변경분 커밋 & 푸시
+        run: |
+          if [[ -n "$(git status --porcelain index.html)" ]]; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.html
+            git commit -m "chore: 홈 유튜브 최신 영상 자동 갱신 [skip ci]"
+            git push
+            echo "✅ 최신 영상으로 갱신·배포됨"
+          else
+            echo "변경 없음 — 커밋 생략"
+          fi
