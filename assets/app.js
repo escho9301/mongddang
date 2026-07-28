@@ -350,3 +350,42 @@
         open(a.href);
     });
 })();
+
+/* ==========================================================================
+   유튜브 카드 자리 재생
+   - 카드를 누르면 유튜브로 나가지 않고 썸네일 자리에 플레이어를 끼워 넣는다.
+   - 처음부터 iframe 을 깔면 영상 수만큼 유튜브 스크립트를 받아 첫 로딩이 느려지므로,
+     실제로 누른 카드 하나만 바꾼다.
+   - 마크업은 그대로 두고 여기서만 처리한다. fetch-youtube.mjs 가 만드는 카드 형태를
+     건드리지 않으므로 자동 갱신과 충돌하지 않는다.
+   - JS 가 없거나 주소 형태가 다르면 원래대로 유튜브로 이동한다(<a> 를 그대로 뒀다).
+   ========================================================================== */
+(function () {
+    document.addEventListener("click", function (e) {
+        var card = e.target.closest ? e.target.closest(".yt-card") : null;
+        if (!card) return;
+        /* 새 탭으로 열려는 클릭은 유튜브로 보낸다 */
+        if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+
+        var id = (/[?&]v=([A-Za-z0-9_-]{6,})/.exec(card.getAttribute("href") || "") || [])[1];
+        if (!id) return;
+
+        var thumb = card.querySelector(".thumb");
+        if (!thumb || thumb.querySelector("iframe")) return;
+
+        e.preventDefault();
+
+        var cap = card.querySelector(".cap");
+        var frame = document.createElement("iframe");
+        /* nocookie 도메인은 재생 전까지 추적 쿠키를 심지 않는다 */
+        frame.src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&rel=0";
+        frame.title = cap ? cap.textContent : "몽땅식탁 영상";
+        frame.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        frame.allowFullscreen = true;
+        frame.referrerPolicy = "strict-origin-when-cross-origin";
+
+        thumb.innerHTML = "";
+        thumb.appendChild(frame);
+        thumb.classList.add("is-playing");   /* 딤 오버레이를 걷는다 */
+    });
+})();
