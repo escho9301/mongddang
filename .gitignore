@@ -1,0 +1,11 @@
+# IDE 설정 — 개인 환경이라 저장소에 올리지 않는다
+.idea/
+.vscode/
+
+# macOS
+.DS_Store
+
+# 교체 전 옛 index.html 원본.
+# 배포하면 /index-legacy.html 로 공개되는데, noindex 가 없어 새 사이트와 검색에서 경쟁하고
+# 루트 에셋(새 로고)을 참조해 화면도 깨진다. 보존본은 archive/ 에 별도로 있으므로 올리지 않는다.
+/index-legacy.html
