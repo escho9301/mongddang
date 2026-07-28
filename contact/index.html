@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>문의·협업 - 몽땅식탁</title>
+    <meta name="description" content="지역기관, 공공기관, 기업, 브랜드와의 다양한 협업을 환영합니다. 몽땅식탁에 문의·협업을 제안해 주세요.">
+    <link rel="canonical" href="https://www.mongddangsigtag.com/contact/">
+    <link rel="icon" href="/img/favicon.ico">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="문의·협업 - 몽땅식탁">
+    <meta property="og:description" content="지역기관, 공공기관, 기업, 브랜드와의 다양한 협업을 환영합니다.">
+    <meta property="og:image" content="https://www.mongddangsigtag.com/img/summary.png">
+    <link rel="stylesheet" as="style" crossorigin
+          href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+    <link rel="stylesheet" as="style" crossorigin
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+    <!-- ===== Header ===== -->
+    <header class="site-header">
+        <div class="container nav">
+            <a class="nav-logo" href="/" aria-label="몽땅식탁 홈"><img src="/img/logo.svg" alt="몽땅식탁"></a>
+            <ul class="nav-menu">
+                <li><a href="/">홈</a></li>
+                <li><a href="/about/">몽땅식탁 소개</a></li>
+                <li class="has-dropdown">
+                    <a href="/service/">서비스 <span class="caret" aria-hidden="true"><svg viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l6 6 6-6"/></svg></span></a>
+                    <div class="dropdown">
+                        <a href="/service/">온라인 서비스</a>
+                        <a href="/community/">오프라인 서비스</a>
+                    </div>
+                </li>
+                <li><a href="/contact/" class="active">문의·협업</a></li>
+            </ul>
+            <a class="nav-cta" href="/contact/">몽땅식탁과 협업하기</a>
+            <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span></button>
+        </div>
+    </header>
+
+    <main>
+        <!-- ===== Hero ===== -->
+        <section class="contact-hero">
+            <div class="container">
+                <span class="eyebrow">CONTACT &amp; COLLABORATION</span>
+                <h1>문의 · 협업</h1>
+                <p>지역기관, 공공기관, 기업, 브랜드와의 다양한 협업을 환영합니다.<br>아래 양식을 통해 문의해 주세요.</p>
+            </div>
+        </section>
+
+        <!-- ===== Form ===== -->
+        <section class="contact-section">
+            <div class="container">
+                <form class="contact-form" id="contactForm" novalidate>
+                    <!-- Web3Forms 공개 키 — 클라이언트에 노출돼도 안전하다.
+                         가입 시 인증한 수신 주소(mongddangsigtag@gmail.com)로만 발송되므로,
+                         키를 가져가도 이 폼으로 우리에게 메일을 보내는 것 외에는 할 수 있는 게 없다.
+                         수신 주소를 바꾸려면 web3forms.com 대시보드에서 새 폼을 만들어 키를 교체해야 한다. -->
+                    <input type="hidden" name="access_key" value="579bd036-745d-4b78-bb43-651a6a6d6b9c">
+                    <input type="hidden" name="subject" value="[몽땅식탁] 새로운 문의·협업 요청이 접수되었습니다">
+                    <input type="hidden" name="from_name" value="몽땅식탁 웹사이트">
+                    <div class="cf-hp" aria-hidden="true">
+                        <label>이 항목은 비워두세요 <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off"></label>
+                    </div>
+
+                    <div class="cf-field">
+                        <label for="cf-company">기관/회사명 <span class="req">*</span></label>
+                        <input type="text" id="cf-company" name="company" required autocomplete="organization">
+                    </div>
+                    <div class="cf-field">
+                        <label for="cf-name">담당자 성함 <span class="req">*</span></label>
+                        <input type="text" id="cf-name" name="name" required autocomplete="name">
+                    </div>
+                    <div class="cf-field">
+                        <label for="cf-email">이메일 <span class="req">*</span></label>
+                        <input type="email" id="cf-email" name="email" required autocomplete="email">
+                    </div>
+                    <div class="cf-field">
+                        <label for="cf-phone">연락처</label>
+                        <input type="tel" id="cf-phone" name="phone" autocomplete="tel">
+                    </div>
+                    <div class="cf-field">
+                        <label for="cf-message">문의 내용 <span class="req">*</span></label>
+                        <textarea id="cf-message" name="message" placeholder="협업 목적, 규모, 원하시는 프로그램 유형 등을 자유롭게 작성해 주세요." required></textarea>
+                    </div>
+
+                    <label class="cf-consent">
+                        <!-- name 이 있어야 FormData 에 담겨 메일에 찍힌다.
+                             개인정보보호법상 동의를 받은 사실을 증빙할 수 있어야 하므로 반드시 전송한다. -->
+                        <input type="checkbox" id="cf-consent" name="개인정보 수집·이용 동의" value="동의함" required>
+                        <span class="cf-consent-text">
+                            <span class="cf-consent-main">개인정보 수집·이용에 동의합니다. <a href="/terms/privacy.html" target="_blank" rel="noopener">개인정보 처리방침</a></span>
+                            <span class="cf-consent-detail">수집 항목: 회사명·성함·이메일·연락처·문의 내용 · 목적: 문의 응대 및 협업 검토 · 보유: 응대 완료 후 파기</span>
+                        </span>
+                    </label>
+
+                    <div class="cf-submit-row">
+                        <span class="note">문의 접수 후 영업일 기준 2~3일 내에 담당자가 연락드립니다.</span>
+                        <button type="submit" class="btn btn-yellow" id="cfSubmit">문의 하기</button>
+                    </div>
+                    <p class="cf-result" id="formResult" role="status" aria-live="polite"></p>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <!-- ===== Footer ===== -->
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-top">
+                <div class="f-brand">
+                    <a class="f-logo" href="/" aria-label="몽땅식탁"><img src="/img/logo.svg" alt="몽땅식탁"></a>
+                    <p class="f-desc">먹는 것을 통해 사람과 지역을 연결하는<br>식문화 스타트업입니다.<br>온라인과 오프라인 커뮤니티로<br>함께하는 밥상 문화를 만들어갑니다.</p>
+                </div>
+                <div class="f-contact">
+                    <dl>
+                        <dt>대표</dt><dd>조은성</dd>
+                        <dt>사업자등록번호</dt><dd>578-86-03207</dd>
+                        <dt>Contact</dt><dd><a href="mailto:mongddangsigtag@gmail.com">mongddangsigtag@gmail.com</a></dd>
+                        <dt>본사</dt><dd>경기도 고양시 덕양구 화중로 104번길33,<br>28청춘창업소 S동 206호</dd>
+                    </dl>
+                </div>
+                <nav class="f-nav" aria-label="푸터 메뉴">
+                    <a href="/">홈</a>
+                    <a href="/about/">몽땅식탁 소개</a>
+                    <a href="/service/">온라인 서비스</a>
+                    <a href="/community/">오프라인 서비스</a>
+                    <a href="/contact/">문의·협업</a>
+                </nav>
+                <div class="f-legal">
+                    <a href="/terms/privacy.html">개인정보 처리방침</a>
+                    <a href="/terms/services.html">이용약관</a>
+                    <div class="f-sns">
+                        <a href="https://www.instagram.com/mongddangsigtag/" target="_blank" rel="noopener" aria-label="인스타그램">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                        </a>
+                        <a href="https://www.youtube.com/channel/UC1zZ-o2dgAro0b_TANsDYgg" target="_blank" rel="noopener" aria-label="유튜브">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2023 MONGTTANGSIGTAG. All rights reserved.</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/app.js"></script>
+</body>
+</html>
