@@ -312,7 +312,10 @@ ul { list-style: none; }
 .partner-track img { height: clamp(40px, 4vw, 56px); width: auto; object-fit: contain; flex: none; margin: 0 clamp(24px, 2.8vw, 40px); }
 .partner-track.is-rolling { flex-wrap: nowrap; justify-content: flex-start; width: max-content; row-gap: 0; will-change: transform; animation: partner-scroll var(--marquee-dur, 30s) linear infinite; }
 .partner-marquee:hover .partner-track.is-rolling { animation-play-state: paused; }
+/* 두 줄로 나뉘는 모바일에서 아랫줄 방향 */
+.partner-track.is-reverse.is-rolling { animation-name: partner-scroll-rev; }
 @keyframes partner-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes partner-scroll-rev { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 
 /* ----- Collaboration CTA (함께 건강한 식문화를 만들어요) ----- */
 .home-collab { padding: clamp(70px, 7.9vw, 120px) 0; }
@@ -523,17 +526,149 @@ ul { list-style: none; }
     .dropdown a { padding: 10px 0; }
     .nav-toggle { display: flex; align-items: center; justify-content: center; }
     .nav-cta { display: none; }
-    /* 모바일 히어로 밴드: SVG를 세로로 늘려 텍스트 공간 확보, 캐릭터 축소·상향 */
-    .hero-band { margin-top: -34px; }
-    .hero-band-bg { height: 118px; object-fit: fill; }
-    .hero-food { top: -34%; width: 118px; }
-    .hero-band-inner .l1 { font-size: 15px; }
-    .hero-band-inner .l2 { font-size: 21px; }
+    /* ------------------------------------------------------------------
+       홈 모바일 — Figma "01_홈_360" (3414:8901) 기준.
+       모바일 프레임은 360 폭으로 그려져 있어 vw 계수는 값/360*100 이다.
+       섹션 공통 여백은 데스크톱 clamp 하한(70px)이 아니라 Figma 그대로 60px.
+       ------------------------------------------------------------------ */
+    .home-connect, .home-archive, .home-results,
+    .home-partners, .home-collab { padding: 60px 0; }
+    .home-connect .section-title, .home-archive .section-title,
+    .home-results .section-title, .home-partners .section-title { font-size: 20px; }
+
+    /* 히어로 사진: Figma 360×330 — 화면 폭을 그대로 쓰고 모서리도 각지다 */
+    .hero > .container { padding: 0; }
+    .hero-photo { border-radius: 0; aspect-ratio: 360 / 330; }
+    /* 밴드가 사진 아래 29px 을 덮는다(360 기준). 밴드 높이 144, 캐릭터 폭 178 */
+    .hero-band { margin-top: clamp(-34px, -8.06vw, -26px); }
+    /* 밴드 SVG(2213×311, 가로 7.1:1)는 상자에 "맞추는" 게 아니라 Figma 배치를 그대로
+       재현해야 물결 크기가 맞는다. Figma 는 360 프레임 안에 SVG 를 1106.5×155.5 로 놓고
+       x=-349, y=+4.5 지점부터 잘라 쓴다.
+       object-fit 으로는 이 배율이 안 나온다 — fill 은 SVG 안쪽에서 레터박싱이 한 번 더 일어나
+       노란 부분이 55px 만 그려지고(사진과 밴드 사이 흰 줄), cover 는 상자 높이에만 맞춰
+       그려서 물결이 Figma 보다 촘촘해진다. 그래서 밴드 높이 기준으로 직접 계산한다. */
+    .hero { overflow: hidden; }   /* 밴드 SVG 가 화면 밖으로 삐져나가는 부분을 잘라낸다 */
+    .hero-band { --band-h: clamp(132px, 40vw, 168px); height: var(--band-h); }
+    .hero-band-bg {
+        position: absolute; max-width: none; height: auto;
+        top:   calc(var(--band-h) *  0.03125);   /* Figma 4.5 / 144 */
+        left:  calc(var(--band-h) * -2.42361);   /* Figma -349 / 144 */
+        width: calc(var(--band-h) *  7.68403);   /* Figma 1106.5 / 144 */
+    }
+
+    /* 헤더 (Figma 3414:8902): 로고 93×24, 햄버거 아이콘 20×20.
+       아이콘은 iwwa:menu — 선 12.92 길이 / 0.5 두께 / 3.625 간격 / #7B7B7B 로 가는 선이다.
+       버튼 자체는 손가락이 닿아야 하므로 42×42 를 그대로 두고 그려지는 선만 맞춘다. */
+    .nav-logo img { height: 24px; }
+    .nav-toggle { color: var(--gray6); }
+    .nav-toggle span, .nav-toggle span::before, .nav-toggle span::after {
+        width: 12.92px; height: 0.5px; border-radius: 0.25px;
+    }
+    .nav-toggle span::before { top: -3.625px; }
+    .nav-toggle span::after { top: 3.625px; }
+    .nav-toggle.open span::before { transform: translateY(3.625px) rotate(45deg); }
+    .nav-toggle.open span::after { transform: translateY(-3.625px) rotate(-45deg); }
+    .hero-band-inner { padding: 0 8px; }
+    .hero-food { top: -34%; width: clamp(160px, 49.4vw, 212px); }
+    .hero-band-inner .l1 { font-size: 16px; }
+    .hero-band-inner .l2 { font-size: 24px; }
+
+    /* Services 배경 무늬: 모바일은 아예 다른 에셋이다.
+       데스크톱 connect-pattern-figma.svg 는 1920×1356 가로형이라
+       세로로 긴 모바일 섹션에 cover 로 깔면 좌우가 잘려 무늬가 커 보인다.
+       Figma 모바일(3414:9687)은 959×1630 세로형을 x=-308.82, y=-169.78 에 놓는다.
+       360 기준 값을 vw 로 옮겨 화면 폭에 따라 같은 비율로 따라가게 한다. */
+    .home-connect {
+        background-image: url("../img/connect-pattern-mobile.svg");
+        background-size: 266.35vw 452.70vw;      /* Figma 958.86 × 1629.73 / 360 */
+        background-position: -85.78vw -47.16vw;  /* Figma x -308.82, y -169.78 / 360 */
+    }
+
+    /* Services: 카드 세로 스택. 제목-카드 20px, 카드끼리 32px */
+    .home-connect .head { margin-bottom: 20px; }
+    .connect-grid { gap: 32px; }
     .connect-card { flex: 1 1 100%; max-width: 360px; }
-    .insta-grid { grid-template-columns: repeat(2, 1fr); }
-    .yt-grid { grid-template-columns: 1fr; }
+
+    /* Archive: 인스타 2×2(154×155, gap 12) + 유튜브 세로 2장(16:9, gap 12).
+       Figma 모바일에는 날짜·캡션이 없다 — 썸네일만 보여주고 텍스트는 감춘다. */
+    .home-archive .head { margin-bottom: 16px; }
+    .arc-block + .arc-block { margin-top: 16px; }
+    .arc-head { margin-bottom: 12px; }
+    .insta-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    .yt-grid { grid-template-columns: 1fr; gap: 12px; }
+    .yt-card .thumb { border-radius: 16px; }
+    /* 재생 버튼 (Figma 3414:8978): 원 44×44, 그림자 0 6px 12px -4px.
+       아이콘은 CSS 로 그린 채운 삼각형이 아니라 18×18 외곽선 삼각형이다
+       (2px 선, 끝이 둥글다). 그래서 더 크고 굵어 보인다. */
+    .yt-card .play { width: 44px; height: 44px; box-shadow: 0 6px 12px -4px rgba(0,0,0,.1); }
+    .yt-card .play::before {
+        width: 18px; height: 18px; margin: 0; border: 0;
+        background: url("../img/play.svg") no-repeat center / contain;
+    }
+    .insta-card .date, .insta-card .cap,
+    .yt-card .date, .yt-card .cap { display: none; }
+
+    /* Results: 기준 문구가 제목 옆이 아니라 숫자 카드 아래 가운데로 내려온다.
+       display:contents 로 .results-head 를 걷어내 컨테이너 직계로 만든 뒤 순서를 바꾼다. */
+    .home-results .container { display: flex; flex-direction: column; }
+    .results-head { display: contents; }
+    .results-head .head { order: 1; margin-bottom: 16px; }
+    .stats-grid { order: 2; gap: 16px; }
+    .results-head .note { order: 3; margin-top: 16px; text-align: center; }
     .stat-item { flex: 1 1 100%; }
-    .collab-banner { flex-direction: column; align-items: flex-start; }
+
+    /* Partner (Figma 3414:9862): 로고 4개 / 3개 두 줄, 줄 간격 40.
+       Figma 는 높이를 통일하지 않고 모든 로고를 원본의 0.4 배로 똑같이 줄인다 —
+       높이를 하나로 맞추면 가로로 긴 로고(파트너3·7)만 두 배로 커져 비율이 무너진다.
+       줄 나누기는 app.js 가 하고, 한 줄이 708px 라 화면에 안 들어가므로
+       Figma 처럼 잘라내는 대신 줄마다 마퀴로 흘려보낸다(아랫줄은 반대 방향). */
+    .home-partners .head { margin-bottom: 20px; }
+    .partner-marquee { display: flex; flex-direction: column; gap: 40px; }
+    .partner-track img { margin: 0 20px; }
+    .partner-track img[src$="partner-1.png"] { height: 64px; }
+    .partner-track img[src$="partner-2.png"] { height: 50px; }
+    .partner-track img[src$="partner-3.png"] { height: 34px; }
+    .partner-track img[src$="partner-4.png"] { height: 51px; }
+    .partner-track img[src$="partner-5.png"] { height: 82px; }
+    .partner-track img[src$="partner-6.png"] { height: 77px; }
+    .partner-track img[src$="partner-7.png"] { height: 47px; }
+
+    /* Collaboration: 카드가 작아지고(반경 20 / 안쪽 24) 버튼이 가로를 꽉 채운다 */
+    .collab-banner {
+        flex-direction: column; align-items: stretch;
+        border-radius: 20px; padding: 24px; gap: 16px;
+    }
+    .collab-text h2 { font-size: 20px; }
+    .collab-text p { font-size: 13px; line-height: 1.81; }
+    .home-collab .btn { justify-content: center; height: 52px; padding: 0 20px; font-size: 13px; }
+
+    /* ----- 푸터 (Figma 3414:9025) -----
+       데스크톱은 4컬럼이지만 모바일은 전부 한 줄로 쌓이고 순서도 다르다:
+       로고 → 메뉴 → 약관 → 회사정보 → SNS → 저작권.
+       마크업 순서는 로고 → 회사정보 → 메뉴 → 약관(+SNS) 이라 order 로 바꾼다.
+       SNS 는 .f-legal 안에 들어 있어서, 껍데기를 display:contents 로 걷어내
+       링크와 SNS 에 각각 순서를 준다. */
+    .site-footer .container { padding: 60px 16px; }
+    .footer-top { flex-direction: column; align-items: stretch; gap: 10px; }
+    .f-brand   { order: 1; margin-bottom: 10px; }
+    .f-nav     { order: 2; gap: 10px; }
+    .f-legal   { display: contents; }
+    .f-legal a { order: 3; }
+    .f-contact { order: 4; margin-top: 10px; }
+    .f-sns     { order: 5; margin-top: 10px; }
+
+    /* 브랜드 소개 문단은 Figma 모바일에 없다 — 두면 5~6줄이라 푸터 혼자 화면 하나를 더 먹는다 */
+    .f-desc { display: none; }
+
+    /* 회사정보: 대표·사업자등록번호만 라벨을 달고, 메일·주소는 라벨 없이 한 줄씩 */
+    /* auto auto 로 두면 남는 폭을 두 칸이 나눠 가져 값이 화면 절반까지 밀린다.
+       Figma 처럼 라벨 칸은 글자 폭만큼만 쓰고 값은 바로 16px 옆에 붙인다. */
+    .f-contact dl { grid-template-columns: max-content 1fr; row-gap: 8px; column-gap: 16px; }
+    .f-contact dt:nth-of-type(n+3) { display: none; }
+    .f-contact dd:nth-of-type(n+3) { grid-column: 1 / -1; }
+
+    /* Figma 모바일에는 저작권 위 구분선이 없다 */
+    .footer-bottom { margin-top: 12px; padding-top: 0; border-top: 0; }
     .about-hero h1, .contact-hero h1, .svc-hero h1 { font-size: 30px; }
     .history-year { flex-direction: column; gap: 8px; }
     .history-year .yr { font-size: 20px; }
@@ -541,11 +676,8 @@ ul { list-style: none; }
     .cf-submit-row .btn { width: 100%; }
     .cf-result { text-align: center; }
 }
-@media (max-width: 480px) {
-    .insta-grid { grid-template-columns: 1fr; }
-    .hero-band-inner .l2 { font-size: 22px; }
-    .hero-band-inner .l1 { font-size: 15px; }
-}
+/* Figma 모바일(360)은 인스타를 2×2 로 유지한다 — 1열로 풀면 4장이 세로로 쌓여
+   아카이브 섹션만 화면 3개 분량이 된다. 밴드 글자도 모바일 값(16/24)을 그대로 쓴다. */
 
 /* ==========================================================================
    법적 문서 모달 (웹사이트 전용)

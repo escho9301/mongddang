@@ -71,55 +71,86 @@
     (function () {
         var marquee = document.querySelector(".partner-marquee");
         if (!marquee) return;
-        var track = marquee.querySelector(".partner-track");
-        if (!track) return;
+        var seed = marquee.querySelector(".partner-track");
+        if (!seed) return;
         if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
-        var groupHTML = track.innerHTML;
+        /* 로고 한 벌을 문자열로 떠 둔다. 다시 깔 때 loading="lazy" 는 떼어 낸다 —
+           마퀴는 로고가 화면에 들어온 뒤에 만들기 시작하므로 미룰 이유가 없고,
+           lazy 인 채로 새로 만들면 사용자가 이미 지나쳐 버린 경우 끝내 로드되지 않아
+           폭이 0 으로 남고 마퀴가 영영 시작되지 않는다. */
+        var logos = Array.prototype.map.call(seed.children, function (el) {
+            return el.outerHTML.replace(/\sloading="lazy"/g, "");
+        });
 
+        /* 폭을 재도 되는 시점인지 확인한다.
+           (1) 로고는 loading="lazy" 이고 첫 화면 아래에 있어 로드 전에는 폭이 0 이다.
+           (2) innerHTML 로 다시 깔면 img 노드가 새로 생겨, 캐시에 있어도 폭이 한 박자 늦게 잡힌다.
+           둘 다 "재는 시점" 문제라 항상 이 안에서 재도록 감싼다. */
+        function whenReady(row, cb) {
+            var imgs = Array.prototype.slice.call(row.querySelectorAll("img"));
+            var pending = imgs.filter(function (im) { return !(im.complete && im.naturalWidth); });
+            if (!pending.length) { cb(); return; }
+            var left = pending.length, done = false;
+            function one() { if (done) return; if (--left <= 0) { done = true; cb(); } }
+            pending.forEach(function (im) { im.addEventListener("load", one); im.addEventListener("error", one); });
+            setTimeout(function () { if (!done) { done = true; cb(); } }, 5000);
+        }
+
+        /* Figma 는 데스크톱(3382:10851)은 한 줄, 모바일(3414:9862)은 4개 + 3개 두 줄로 나눈다.
+           마크업 순서가 곧 Figma 의 줄 순서라 앞 4개 / 뒤 3개로 자르면 그대로 맞는다. */
         function build() {
-            track.classList.remove("is-rolling");
-            track.style.removeProperty("--marquee-dur");
-            track.innerHTML = groupHTML;
+            var rows = (window.innerWidth <= 760) ? [logos.slice(0, 4), logos.slice(4)] : [logos];
+            marquee.innerHTML = "";
+            rows.forEach(function (logoSet, i) {
+                var html = logoSet.join("");
+                var row = document.createElement("div");
+                /* 두 줄일 때 아랫줄은 반대로 흘려보낸다 — 같은 방향이면 두 줄이 한 덩어리로 보인다 */
+                row.className = "partner-track" + (i ? " is-reverse" : "");
+                row.innerHTML = html;
+                marquee.appendChild(row);
+                whenReady(row, function () { roll(row, html); });
+            });
+        }
 
-            /* scrollWidth 를 읽는 순간 레이아웃이 강제로 계산되므로 rAF 를 기다릴 필요가 없다.
+        function roll(track, groupHTML) {
+            /* 폭은 "굴러갈 때의 배치"(한 줄)에서 재야 한다. 평소 배치는 flex-wrap:wrap 이라
+               scrollWidth 가 한 줄 총폭이 아니라 컨테이너 폭(=화면 폭)으로 잡히고,
+               그러면 복제 개수와 속도가 함께 어긋난다.
+               is-rolling 을 미리 붙이면 애니메이션이 먼저 도니 인라인 스타일로만 잠깐 바꾼다.
+               scrollWidth 를 읽는 순간 레이아웃이 강제로 계산되므로 rAF 는 필요 없다 —
                rAF 에 맡기면 배경 탭처럼 스로틀되는 상황에서 마퀴가 아예 시작되지 않는다. */
+            track.style.flexWrap = "nowrap";
+            track.style.width = "max-content";
             var groupWidth = track.scrollWidth;
+            track.style.flexWrap = "";
+            track.style.width = "";
             if (!groupWidth) return;
 
             /* 한 세트가 화면보다 좁으면 이어 붙여 화면을 채운다. 그래야 이음매에 빈 공간이 안 생긴다. */
             var need = marquee.clientWidth || groupWidth;
-            var content = groupHTML, contentWidth = groupWidth, guard = 0;
-            while (contentWidth < need && guard < 20) { content += groupHTML; contentWidth += groupWidth; guard++; }
+            var copies = 1, contentWidth = groupWidth;
+            while (contentWidth < need && copies < 20) { copies++; contentWidth += groupWidth; }
 
-            /* 같은 내용을 두 벌 깔고 정확히 한 벌만큼(-50%) 밀면 끊김 없이 이어진다 */
-            track.innerHTML = content + content;
+            /* 같은 내용을 두 벌 깔고 정확히 한 벌만큼(-50%) 밀면 끊김 없이 이어진다.
+               이미 폭이 잡힌 첫 세트는 건드리지 않고 뒤에만 덧붙인다 —
+               통째로 다시 그리면 방금 잰 폭이 또 0 으로 돌아간다. */
+            var extra = "";
+            for (var i = 1; i < copies * 2; i++) extra += groupHTML;
+            track.insertAdjacentHTML("beforeend", extra);
             track.style.setProperty("--marquee-dur", Math.max(12, Math.round(contentWidth / 60)) + "s");
             track.classList.add("is-rolling");
-        }
-
-        /* 로고는 loading="lazy" 이고 첫 화면 아래에 있다. 그래서 페이지 로드 직후에 재면
-           이미지 폭이 0 이라 복제 개수와 속도가 엉뚱하게 잡히고, 나중에 이미지가 뜨면
-           실제 폭과 어긋나 빈 공간이 생긴다. 화면에 들어와 이미지가 실제로 로드된 뒤에 만든다. */
-        function buildWhenLoaded() {
-            var imgs = Array.prototype.slice.call(track.querySelectorAll("img"));
-            var remaining = imgs.filter(function (im) { return !(im.complete && im.naturalWidth); });
-            if (!remaining.length) { build(); return; }
-            var left = remaining.length, done = false;
-            function one() { if (done) return; if (--left <= 0) { done = true; build(); } }
-            remaining.forEach(function (im) { im.addEventListener("load", one); im.addEventListener("error", one); });
-            setTimeout(function () { if (!done) { done = true; build(); } }, 5000);
         }
 
         if (window.IntersectionObserver) {
             var io = new IntersectionObserver(function (entries) {
                 if (!entries.some(function (en) { return en.isIntersecting; })) return;
                 io.disconnect();
-                buildWhenLoaded();
+                build();
             }, { rootMargin: "200px" });   /* 조금 못 미쳐도 미리 준비 */
             io.observe(marquee);
         } else {
-            buildWhenLoaded();
+            build();
         }
 
         var t;
