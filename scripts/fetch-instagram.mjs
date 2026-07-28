@@ -17,6 +17,13 @@ import { readFile, writeFile } from "node:fs/promises";
 
 const TOKEN = process.env.IG_TOKEN;
 const COUNT = 4; // .insta-grid 는 4칸(데스크톱)
+
+/* 인스타 프로필은 "고정"한 게시물을 날짜와 무관하게 맨 앞에 보여준다.
+   그런데 API 에는 고정 여부를 알려주는 필드가 없어서, 여기에 직접 적어 화면 순서를 맞춘다.
+   인스타에서 고정을 바꾸면 이 목록도 바꿔야 한다. permalink 의 /p/<코드>/ 부분을 순서대로 넣는다.
+   목록을 비우면(IG_PINNED="") 그냥 최신순이 된다. */
+const PINNED = (process.env.IG_PINNED ?? "DaJ7tkYTH5m,CyNZPfivx_X")
+  .split(",").map((s) => s.trim()).filter(Boolean);
 const CAP_MAX = 80; // CSS가 2줄로 한번 더 자르므로 넉넉히 둔다
 const API = process.env.IG_API_BASE || "https://graph.instagram.com"; // 버전 미지정 = 최신
 const FIELDS = "id,caption,media_type,media_url,thumbnail_url,permalink,timestamp";
@@ -61,6 +68,20 @@ async function api(path, params) {
   return json;
 }
 
+const shortcode = (permalink) => (/\/p\/([A-Za-z0-9_-]+)/.exec(permalink || "") || [])[1] || "";
+
+/* 고정 게시물을 PINNED 에 적은 순서대로 앞으로 끌어오고, 나머지는 API 가 준 최신순을 그대로 둔다 */
+function applyPinned(list) {
+  if (!PINNED.length) return list;
+  const rank = new Map(PINNED.map((c, i) => [c, i]));
+  const pinned = [], rest = [];
+  for (const m of list) (rank.has(shortcode(m.permalink)) ? pinned : rest).push(m);
+  pinned.sort((a, b) => rank.get(shortcode(a.permalink)) - rank.get(shortcode(b.permalink)));
+  const missing = PINNED.filter((c) => !list.some((m) => shortcode(m.permalink) === c));
+  if (missing.length) console.error(`고정 목록에 있으나 못 찾은 게시물: ${missing.join(", ")}`);
+  return pinned.concat(rest);
+}
+
 // 이미지 주소 고르기: 영상/릴스는 썸네일, 캐러셀은 media_url 이 빠질 수 있어 첫 장을 따로 조회
 async function pickImage(m) {
   if (m.media_type === "VIDEO") return m.thumbnail_url || m.media_url;
@@ -97,7 +118,9 @@ async function main() {
   let media;
   try {
     // 영상·캐러셀 중 이미지가 없는 건이 섞일 수 있어 넉넉히 받아 앞에서부터 COUNT개를 채운다
-    const json = await api("/me/media", { fields: FIELDS, limit: "12" });
+    /* 고정 게시물이 오래된 글일 수 있어 넉넉히 받는다.
+       12개만 받으면 2023년 글을 고정해둔 경우 목록에 아예 안 들어와 순서를 못 맞춘다. */
+    const json = await api("/me/media", { fields: FIELDS, limit: "100" });
     media = json?.data || [];
   } catch (e) {
     console.error("인스타 API 요청 실패 — 변경 없이 종료:", e.message);

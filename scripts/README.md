@@ -75,6 +75,22 @@ git rm img/ig-1.png img/ig-2.png img/ig-3.png img/ig-4.png
 
 ---
 
+## 고정(핀) 게시물 순서
+
+인스타 프로필은 **고정한 게시물을 날짜와 무관하게 맨 앞**에 보여준다.
+그런데 API 에는 고정 여부를 알려주는 필드가 없어서, 최신순으로만 가져오면
+홈의 카드 순서가 인스타 화면과 달라진다.
+
+그래서 `fetch-instagram.mjs` 상단의 `PINNED` 에 고정 게시물을 직접 적어둔다.
+
+```js
+const PINNED = (process.env.IG_PINNED ?? "DaJ7tkYTH5m,CyNZPfivx_X")
+```
+
+**인스타에서 고정을 바꾸면 이 목록도 같이 바꿔야 한다.** 게시물 주소
+`https://www.instagram.com/p/DaJ7tkYTH5m/` 에서 `/p/` 뒤의 코드를 순서대로 넣으면 된다.
+그냥 최신순으로 두고 싶으면 목록을 비운다(`IG_PINNED=""`).
+
 ## 동작 방식 메모
 
 - **이미지를 저장소에 받아둔다.** 인스타 `media_url` 은 서명된 임시 CDN 주소라 며칠이면 만료된다.
