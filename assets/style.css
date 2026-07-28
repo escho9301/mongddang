@@ -567,8 +567,6 @@ ul { list-style: none; }
 .doc-modal.is-open .doc-modal-panel { opacity: 1; transform: none; }
 .doc-modal-head { flex: none; display: flex; align-items: center; gap: 14px; padding: 18px clamp(20px, 3vw, 32px); border-bottom: 1px solid var(--line); }
 .doc-modal-head h2 { flex: 1; margin: 0; font-size: clamp(17px, 2vw, 21px); font-weight: 700; color: var(--gray10); letter-spacing: -0.02em; }
-.doc-modal-newtab { flex: none; font-size: 13px; color: var(--gray6); white-space: nowrap; }
-.doc-modal-newtab:hover { color: var(--gray10); text-decoration: underline; }
 .doc-modal-close { flex: none; width: 36px; height: 36px; padding: 0; border: 0; border-radius: 50%; background: var(--gray2); color: var(--gray10); cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: background .12s ease; }
 .doc-modal-close:hover { background: #e0e0e0; }
 .doc-modal-close svg { width: 16px; height: 16px; }

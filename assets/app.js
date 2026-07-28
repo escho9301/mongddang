@@ -234,7 +234,7 @@
    ========================================================================== */
 (function () {
     var TARGET = /terms\/privacy\.html$/;   /* 팝업으로 띄울 문서 */
-    var modal = null, panel = null, body = null, titleEl = null, newTab = null;
+    var modal = null, panel = null, body = null, titleEl = null;
     var lastFocus = null, cache = {};
 
     function build() {
@@ -246,7 +246,6 @@
             '<div class="doc-modal-panel" role="dialog" aria-modal="true" aria-labelledby="doc-modal-title">' +
               '<div class="doc-modal-head">' +
                 '<h2 id="doc-modal-title">개인정보 처리방침</h2>' +
-                '<a class="doc-modal-newtab" target="_blank" rel="noopener">새 탭에서 보기</a>' +
                 '<button type="button" class="doc-modal-close" data-close aria-label="닫기">' +
                   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>' +
                 '</button>' +
@@ -257,7 +256,6 @@
         panel = modal.querySelector(".doc-modal-panel");
         body = modal.querySelector(".doc-modal-body");
         titleEl = modal.querySelector("#doc-modal-title");
-        newTab = modal.querySelector(".doc-modal-newtab");
 
         modal.addEventListener("click", function (e) {
             if (e.target.closest("[data-close]")) close();
@@ -281,7 +279,6 @@
     function open(url) {
         if (!modal) build();
         lastFocus = document.activeElement;
-        newTab.href = url;
         body.innerHTML = '<p class="doc-modal-status">문서를 불러오는 중…</p>';
 
         /* 스크롤바 폭만큼 보정해 배경이 밀리지 않게 */
