@@ -81,29 +81,46 @@
             track.classList.remove("is-rolling");
             track.style.removeProperty("--marquee-dur");
             track.innerHTML = groupHTML;
-            requestAnimationFrame(function () {
-                var groupWidth = track.scrollWidth;
-                if (!groupWidth) return;
-                var need = marquee.clientWidth || groupWidth;
-                var content = groupHTML, contentWidth = groupWidth, guard = 0;
-                while (contentWidth < need && guard < 20) { content += groupHTML; contentWidth += groupWidth; guard++; }
-                track.innerHTML = content + content;
-                track.style.setProperty("--marquee-dur", Math.max(12, Math.round(contentWidth / 60)) + "s");
-                track.classList.add("is-rolling");
-            });
+
+            /* scrollWidth 를 읽는 순간 레이아웃이 강제로 계산되므로 rAF 를 기다릴 필요가 없다.
+               rAF 에 맡기면 배경 탭처럼 스로틀되는 상황에서 마퀴가 아예 시작되지 않는다. */
+            var groupWidth = track.scrollWidth;
+            if (!groupWidth) return;
+
+            /* 한 세트가 화면보다 좁으면 이어 붙여 화면을 채운다. 그래야 이음매에 빈 공간이 안 생긴다. */
+            var need = marquee.clientWidth || groupWidth;
+            var content = groupHTML, contentWidth = groupWidth, guard = 0;
+            while (contentWidth < need && guard < 20) { content += groupHTML; contentWidth += groupWidth; guard++; }
+
+            /* 같은 내용을 두 벌 깔고 정확히 한 벌만큼(-50%) 밀면 끊김 없이 이어진다 */
+            track.innerHTML = content + content;
+            track.style.setProperty("--marquee-dur", Math.max(12, Math.round(contentWidth / 60)) + "s");
+            track.classList.add("is-rolling");
         }
 
-        function whenImagesReady(cb) {
+        /* 로고는 loading="lazy" 이고 첫 화면 아래에 있다. 그래서 페이지 로드 직후에 재면
+           이미지 폭이 0 이라 복제 개수와 속도가 엉뚱하게 잡히고, 나중에 이미지가 뜨면
+           실제 폭과 어긋나 빈 공간이 생긴다. 화면에 들어와 이미지가 실제로 로드된 뒤에 만든다. */
+        function buildWhenLoaded() {
             var imgs = Array.prototype.slice.call(track.querySelectorAll("img"));
             var remaining = imgs.filter(function (im) { return !(im.complete && im.naturalWidth); });
-            if (!remaining.length) { cb(); return; }
+            if (!remaining.length) { build(); return; }
             var left = remaining.length, done = false;
-            function one() { if (done) return; if (--left <= 0) { done = true; cb(); } }
+            function one() { if (done) return; if (--left <= 0) { done = true; build(); } }
             remaining.forEach(function (im) { im.addEventListener("load", one); im.addEventListener("error", one); });
-            setTimeout(function () { if (!done) { done = true; cb(); } }, 3000);
+            setTimeout(function () { if (!done) { done = true; build(); } }, 5000);
         }
 
-        whenImagesReady(build);
+        if (window.IntersectionObserver) {
+            var io = new IntersectionObserver(function (entries) {
+                if (!entries.some(function (en) { return en.isIntersecting; })) return;
+                io.disconnect();
+                buildWhenLoaded();
+            }, { rootMargin: "200px" });   /* 조금 못 미쳐도 미리 준비 */
+            io.observe(marquee);
+        } else {
+            buildWhenLoaded();
+        }
 
         var t;
         window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(build, 200); });
@@ -408,5 +425,15 @@
         thumb.appendChild(frame);
         thumb.classList.add("is-playing");   /* 딤 오버레이를 걷는다 */
         playing = card;
+    });
+})();
+
+/* 저작권 표기의 끝 연도를 올해로 맞춘다.
+   기준 연도(2023)는 최초 발행 연도라 고정이고, 끝 연도만 매년 바뀐다.
+   HTML 에 올해 값을 적어 뒀으므로 JS 가 없어도 표기가 비지 않는다. */
+(function () {
+    var y = String(new Date().getFullYear());
+    Array.prototype.forEach.call(document.querySelectorAll("[data-year]"), function (el) {
+        if (el.textContent !== y) el.textContent = y;
     });
 })();
