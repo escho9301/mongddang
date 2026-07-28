@@ -2,152 +2,17 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>오프라인 서비스 - 몽땅식탁</title>
-    <meta name="description" content="함께 요리하고 나누는 소셜 다이닝과 지역 동아리. 오프라인에서 관계와 커뮤니티를 만드는 몽땅식탁의 오프라인 서비스를 만나보세요.">
-    <link rel="canonical" href="https://www.mongddangsigtag.com/community">
-    <link rel="icon" href="/img/favicon.ico">
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="오프라인 서비스 - 몽땅식탁">
-    <meta property="og:description" content="함께 요리하고 나누는 소셜 다이닝과 지역 동아리 — 오프라인에서 만드는 식문화 커뮤니티.">
-    <meta property="og:image" content="https://www.mongddangsigtag.com/img/summary.png">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
-    <link rel="stylesheet" href="/assets/style.css">
+    <title>몽땅식탁</title>
+    <!-- 옛 주소로 들어온 방문자를 새 주소로 넘긴다. 검색에는 새 주소만 남기려고 noindex 를 둔다.
+         .html 파일이 같은 이름의 디렉터리보다 먼저 응답하므로 /service 도 여기서 처리된다. -->
+    <link rel="canonical" href="https://www.mongddangsigtag.com/service/offline">
+    <meta name="robots" content="noindex">
+    <meta http-equiv="refresh" content="0; url=/service/offline">
+    <script>location.replace("/service/offline" + location.search + location.hash);</script>
 </head>
 <body>
-    <!-- ===== Header ===== -->
-    <header class="site-header">
-        <div class="container nav">
-            <a class="nav-logo" href="/" aria-label="몽땅식탁 홈"><img src="/img/logo.svg" alt="몽땅식탁"></a>
-            <ul class="nav-menu">
-                <li><a href="/">홈</a></li>
-                <li><a href="/about">몽땅식탁 소개</a></li>
-                <li class="has-dropdown">
-                    <a href="/service" class="active">서비스 <span class="caret" aria-hidden="true"><svg viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2l6 6 6-6"/></svg></span></a>
-                    <div class="dropdown">
-                        <a href="/service">온라인 서비스</a>
-                        <a href="/community">오프라인 서비스</a>
-                    </div>
-                </li>
-                <li><a href="/contact">문의·협업</a></li>
-            </ul>
-            <a class="nav-cta" href="/contact">몽땅식탁과 협업하기</a>
-            <button class="nav-toggle" aria-label="메뉴 열기" aria-expanded="false"><span></span></button>
-        </div>
-    </header>
-
-    <main>
-        <!-- ===== Hero ===== -->
-        <section class="comm-hero">
-            <div class="container">
-                <p class="comm-pill">청년들과 함께하는 소셜 다이닝</p>
-                <div class="comm-hero-photo">
-                    <img class="cloud" src="/img/comm-hero-cloud.webp" alt="청년들이 함께 요리하고 나누는 소셜 다이닝 식탁" fetchpriority="high">
-                    <img class="veg veg-tomato" src="/img/veg-tomato.webp" alt="" aria-hidden="true">
-                    <img class="veg veg-beet" src="/img/veg-beet.webp" alt="" aria-hidden="true">
-                    <img class="veg veg-carrot" src="/img/veg-carrot.webp" alt="" aria-hidden="true">
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== 소셜 다이닝 프로그램 기획/운영 ===== -->
-        <section class="comm-sec">
-            <div class="container">
-                <div class="row">
-                    <div class="txt">
-                        <h2>소셜 다이닝 등 커뮤니티<br>프로그램 기획/운영</h2>
-                        <p>서울/경기도 권역 청년센터와 협업하여<br>청년들과 함께하는 소셜 다이닝 프로그램을 기획하고 운영합니다.</p>
-                    </div>
-                    <div class="media"><div class="comm-photo"><img src="/img/comm-plan.jpg" alt="소셜 다이닝 프로그램을 기획하는 모습" loading="lazy"></div></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== 지역 동아리 기반 커뮤니티 형성 ===== -->
-        <section class="comm-sec">
-            <div class="container">
-                <div class="row trio-row">
-                    <div class="comm-trio">
-                        <figure>
-                            <div class="comm-photo"><img src="/img/comm-dining.jpg" alt="함께 요리하고 식사하며 대화하는 모습" loading="lazy"></div>
-                            <figcaption>요리 &amp; 식사 &amp; 대화</figcaption>
-                        </figure>
-                        <figure>
-                            <div class="comm-photo"><img src="/img/comm-garden.jpg" alt="텃밭을 가꾸는 모습" loading="lazy"></div>
-                            <figcaption>텃밭 가꾸기</figcaption>
-                        </figure>
-                        <figure>
-                            <div class="comm-photo"><img src="/img/comm-ingredients.jpg" alt="제철 식재료를 탐구하는 모습" loading="lazy"></div>
-                            <figcaption>제철 식재료 탐구</figcaption>
-                        </figure>
-                    </div>
-                    <div class="txt">
-                        <h2>지역 동아리 기반<br>커뮤니티 형성</h2>
-                        <p>서울청년센터 은평/양천 등 지역을 중심으로<br>청년들이 모이고, 요리하고, 식사하며<br>커뮤니티를 만들어가는 활동을 지원합니다.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== 식문화 관련 다양한 활동 기획 ===== -->
-        <section class="comm-sec">
-            <div class="container">
-                <div class="row">
-                    <div class="txt">
-                        <h2>식문화 관련 다양한 활동 기획</h2>
-                        <p>식재료를 탐구하고, 요리하고, 함께 나누는<br>참여형 식문화 프로그램을 기획하고 운영합니다.</p>
-                    </div>
-                    <div class="media"><div class="comm-photo"><img src="/img/comm-workshop.jpg" alt="참여형 식문화 워크숍 현장" loading="lazy"></div></div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <!-- ===== Footer ===== -->
-    <footer class="site-footer">
-        <div class="container">
-            <div class="footer-top">
-                <div class="f-brand">
-                    <a class="f-logo" href="/" aria-label="몽땅식탁"><img src="/img/logo.svg" alt="몽땅식탁"></a>
-                    <p class="f-desc">먹는 것을 통해 사람과 지역을 연결하는<br>식문화 스타트업입니다.<br>온라인과 오프라인 커뮤니티로<br>함께하는 밥상 문화를 만들어갑니다.</p>
-                </div>
-                <div class="f-contact">
-                    <dl>
-                        <dt>대표</dt><dd>조은성</dd>
-                        <dt>사업자등록번호</dt><dd>578-86-03207</dd>
-                        <dt>Contact</dt><dd><a href="mailto:mongddangsigtag@gmail.com">mongddangsigtag@gmail.com</a></dd>
-                        <dt>본사</dt><dd>경기도 고양시 덕양구 화중로 104번길33,<br>28청춘창업소 S동 206호</dd>
-                    </dl>
-                </div>
-                <nav class="f-nav" aria-label="푸터 메뉴">
-                    <a href="/">홈</a>
-                    <a href="/about">몽땅식탁 소개</a>
-                    <a href="/service">온라인 서비스</a>
-                    <a href="/community">오프라인 서비스</a>
-                    <a href="/contact">문의·협업</a>
-                </nav>
-                <div class="f-legal">
-                    <a href="/terms/privacy.html">개인정보 처리방침</a>
-                    <a href="/terms/services.html">이용약관</a>
-                    <div class="f-sns">
-                        <a href="https://www.instagram.com/mongddangsigtag/" target="_blank" rel="noopener" aria-label="인스타그램">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
-                        </a>
-                        <a href="https://www.youtube.com/channel/UC1zZ-o2dgAro0b_TANsDYgg" target="_blank" rel="noopener" aria-label="유튜브">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C19.3 5 12 5 12 5s-7.3 0-8.8.5A2.5 2.5 0 0 0 1.4 7.3C1 8.8 1 12 1 12s0 3.2.4 4.7a2.5 2.5 0 0 0 1.8 1.8C4.7 19 12 19 12 19s7.3 0 8.8-.5a2.5 2.5 0 0 0 1.8-1.8C23 15.2 23 12 23 12zM10 15.5v-7l6 3.5-6 3.5z"/></svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <span>© 2023 MONGTTANGSIGTAG. All rights reserved.</span>
-            </div>
-        </div>
-    </footer>
-
-    <script src="/assets/app.js"></script>
+    <p style="font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo',sans-serif;padding:40px;text-align:center;">
+        주소가 바뀌었습니다. 자동으로 이동합니다 — <a href="/service/offline">/service/offline</a>
+    </p>
 </body>
 </html>
