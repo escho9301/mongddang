@@ -361,6 +361,22 @@
    - JS 가 없거나 주소 형태가 다르면 원래대로 유튜브로 이동한다(<a> 를 그대로 뒀다).
    ========================================================================== */
 (function () {
+    /* 한 번에 하나만 재생한다. 다른 영상을 틀면 앞의 것은 멈추고 썸네일로 되돌린다.
+       iframe 을 그냥 두면 소리가 겹치고, 유튜브 플레이어도 계속 살아 있게 된다. */
+    var playing = null;          /* 지금 재생 중인 카드 */
+    var savedThumb = null;       /* 그 카드의 원래 썸네일 마크업 */
+
+    function stopPlaying() {
+        if (!playing) return;
+        var t = playing.querySelector(".thumb");
+        if (t && savedThumb !== null) {
+            t.innerHTML = savedThumb;   /* iframe 제거 = 재생 중지. 썸네일이 다시 보인다 */
+            t.classList.remove("is-playing");
+        }
+        playing = null;
+        savedThumb = null;
+    }
+
     document.addEventListener("click", function (e) {
         var card = e.target.closest ? e.target.closest(".yt-card") : null;
         if (!card) return;
@@ -371,9 +387,12 @@
         if (!id) return;
 
         var thumb = card.querySelector(".thumb");
-        if (!thumb || thumb.querySelector("iframe")) return;
+        if (!thumb) return;
+        /* 이미 이 카드가 재생 중이면 건드리지 않는다 — 일시정지 등은 유튜브 플레이어에 맡긴다 */
+        if (thumb.querySelector("iframe")) return;
 
         e.preventDefault();
+        stopPlaying();               /* 새로 틀기 전에 앞의 영상을 멈춘다 */
 
         var cap = card.querySelector(".cap");
         var frame = document.createElement("iframe");
@@ -384,8 +403,10 @@
         frame.allowFullscreen = true;
         frame.referrerPolicy = "strict-origin-when-cross-origin";
 
+        savedThumb = thumb.innerHTML;        /* 나중에 되돌릴 원본을 보관 */
         thumb.innerHTML = "";
         thumb.appendChild(frame);
         thumb.classList.add("is-playing");   /* 딤 오버레이를 걷는다 */
+        playing = card;
     });
 })();
