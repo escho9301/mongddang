@@ -338,10 +338,12 @@
         var a = e.target.closest("a[href]");
         if (!a) return;
         if (!TARGET.test(a.getAttribute("href") || "")) return;
-        /* 모달 안의 "새 탭에서 보기"처럼 새 탭 전용으로 만든 링크는 가로채지 않는다.
-           이걸 빼면 그 링크도 같은 문서를 가리키므로 여기서 preventDefault 되어
-           새 탭이 안 열리고 이미 열린 모달만 다시 열린다. */
-        if (a.target === "_blank") return;
+        /* 모달 자신의 "새 탭에서 보기" 링크만 가로채지 않는다.
+           그 링크도 같은 문서를 가리켜서, 막지 않으면 여기서 preventDefault 되어
+           새 탭이 안 열리고 이미 열린 모달만 다시 열린다.
+           target="_blank" 전체를 제외하면 안 된다 — 문의 폼의 동의 안내 링크처럼
+           본문에도 target="_blank" 인 링크가 있고, 그건 팝업으로 떠야 한다. */
+        if (modal && modal.contains(a)) return;
         /* 새 탭/새 창으로 열려는 클릭은 그대로 둔다 */
         if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
         e.preventDefault();
