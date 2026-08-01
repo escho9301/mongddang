@@ -89,7 +89,14 @@
                     <div class="ftext">
                         <h2><span class="thin">오늘 뭐 먹지 고민될 때</span><br>나에게 맞는 한 끼를 바로 확인해요</h2>
                     </div>
-                    <div class="fig svc-fig-2"><img src="/img/svc-feature2.png" alt="오늘의 메뉴 추천과 맞춤 레시피 추천 화면" loading="lazy"></div>
+                    <!-- 두 카드를 겹쳐 놓는 방향이 데스크톱(가로)과 모바일(세로)에서 달라
+                         합성본을 폭에 따라 바꾼다 (Figma 3414:10108). -->
+                    <div class="fig svc-fig-2">
+                        <picture>
+                            <source media="(max-width: 760px)" srcset="/img/svc-feature2-mobile.png">
+                            <img src="/img/svc-feature2.png" alt="오늘의 메뉴 추천과 맞춤 레시피 추천 화면" loading="lazy">
+                        </picture>
+                    </div>
                 </div>
             </div>
         </section>
