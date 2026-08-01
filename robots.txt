@@ -1,7 +1,9 @@
 User-agent: *
 Allow: /
 
-# 옛 사이트 아카이브 — 검색에 걸리지 않게 한다 (페이지 자체에도 noindex 가 있다)
-Disallow: /archive/
+# /archive 는 일부러 막지 않는다.
+# robots.txt 로 막으면 크롤러가 페이지 안의 noindex 를 읽지 못해
+# 오히려 색인에 남는다. 아카이브 페이지에는 noindex 가 붙어 있으므로
+# 크롤은 허용하고 색인만 빠지게 둔다.
 
 Sitemap: https://www.mongddangsigtag.com/sitemap.xml
