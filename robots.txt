@@ -1,7 +1,7 @@
 User-agent: *
 Allow: /
 
-# 옛 사이트 보관본 — 검색에 걸리지 않게 한다 (페이지 자체에도 noindex 가 있다)
+# 옛 사이트 아카이브 — 검색에 걸리지 않게 한다 (페이지 자체에도 noindex 가 있다)
 Disallow: /archive/
 
 Sitemap: https://www.mongddangsigtag.com/sitemap.xml
