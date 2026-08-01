@@ -669,7 +669,23 @@ ul { list-style: none; }
 
     /* Figma 모바일에는 저작권 위 구분선이 없다 */
     .footer-bottom { margin-top: 12px; padding-top: 0; border-top: 0; }
-    .about-hero h1, .contact-hero h1, .svc-hero h1 { font-size: 30px; }
+    .contact-hero h1, .svc-hero h1 { font-size: 30px; }
+
+    /* 소개 히어로 (Figma 3414:9959): 프레임 360×400.
+       사진은 3024×4032 세로 원본인데 Figma 는 이걸 610 폭까지 키운 뒤
+       세로 가운데 띠(원본의 8.8%~65.0% 구간)만 보여준다.
+       cover 는 폭 360 에 맞춰 그리니 Figma 보다 1.69 배 작게(덜 확대되어) 나온다.
+       object-fit 으로는 이 배율이 안 나와서 크기·위치를 직접 준다. */
+    .about-hero-frame { height: clamp(368px, 111.11vw, 480px); }
+    .about-hero-frame img {
+        position: absolute; max-width: none;
+        width: 169.44vw;    /* Figma 610 / 360 */
+        height: auto;
+        left: -31.11vw;     /* Figma x -112 / 360 */
+        top: -35.95vw;      /* 잘라낸 띠의 위쪽까지 올려 원본 기준으로 맞춘 값 */
+    }
+    .about-hero h1 { font-size: 24px; }
+    .about-hero .container { bottom: 28px; }
     .history-year { flex-direction: column; gap: 8px; }
     .history-year .yr { font-size: 20px; }
     .cf-submit-row { justify-content: stretch; }
