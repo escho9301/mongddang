@@ -44,7 +44,15 @@
         <section class="svc-hero">
             <div class="container">
                 <div class="row">
-                    <div class="svc-phone"><img src="/img/svc-hero-phone.png" alt="몽땅식탁 앱 온보딩 화면" fetchpriority="high"></div>
+                    <!-- 데스크톱은 말풍선이 오른쪽 글로 향하도록 치우쳐 있고,
+                         모바일(Figma 3414:10064)은 폰보다 넓게 가운데로 걸친다.
+                         한 장으로는 둘 다 못 맞춰서 폭에 따라 다른 합성본을 쓴다. -->
+                    <div class="svc-phone">
+                        <picture>
+                            <source media="(max-width: 760px)" srcset="/img/svc-hero-phone-mobile.png">
+                            <img src="/img/svc-hero-phone.png" alt="몽땅식탁 앱 온보딩 화면" fetchpriority="high">
+                        </picture>
+                    </div>
                     <div class="htext">
                         <h1>오늘의 집밥, 고민 없이<br>요리 완성까지 한 번에</h1>
                         <div class="stores">
