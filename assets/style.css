@@ -535,13 +535,15 @@ ul { list-style: none; }
     .comm-sec .media { flex: none; }
     .comm-photo { aspect-ratio: auto; height: 210px; border-radius: 24px; }
 
-    /* 3장 썸네일: Figma 는 253.5 카드를 가운데 정렬로 둬 좌우가 잘린다.
-       카드 크기는 Figma 대로 두고 가로 스크롤로 셋 다 닿게 한다. */
+    /* 3장 썸네일: Figma 는 253.5 카드를 가운데 정렬로 둬 양옆 장이 걸쳐 보인다.
+       한 장씩 가운데 세우는 캐러셀이라 자동으로 넘긴다(app.js). 손으로도 넘길 수 있다. */
     .comm-sec .row.trio-row .comm-trio {
         overflow-x: auto; gap: 22.5px; scroll-snap-type: x mandatory; scrollbar-width: none;
+        /* 첫 장·마지막 장도 가운데에 설 수 있게 양옆을 비운다 */
+        padding-inline: calc((100% - 70.42vw) / 2);
     }
     .comm-sec .row.trio-row .comm-trio::-webkit-scrollbar { display: none; }
-    .comm-trio figure { flex: 0 0 70.42vw; scroll-snap-align: start; }   /* Figma 253.5 */
+    .comm-trio figure { flex: 0 0 70.42vw; scroll-snap-align: center; }   /* Figma 253.5 */
     .comm-trio .comm-photo { height: auto; aspect-ratio: 1 / 1; border-radius: 15px; }
     .comm-trio figcaption { font-size: 10px; margin-top: 9px; }
     .nav-menu {

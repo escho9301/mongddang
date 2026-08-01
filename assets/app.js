@@ -157,6 +157,61 @@
         window.addEventListener("resize", function () { clearTimeout(t); t = setTimeout(build, 200); });
     })();
 
+    /* ---------- 오프라인 "지역 동아리" 사진 3장 롤링 ----------
+       Figma 모바일은 253.5 카드를 가운데 세우고 양옆 장이 걸쳐 보이게 둔다 = 캐러셀.
+       데스크톱은 셋이 한 줄에 다 보이므로 넘길 것이 없다. */
+    (function () {
+        var track = document.querySelector(".comm-trio");
+        if (!track) return;
+        if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+        var cards = Array.prototype.slice.call(track.querySelectorAll("figure"));
+        if (cards.length < 2) return;
+
+        var holdUntil = 0;
+
+        /* 가로로 넘칠 때(=모바일)만 돈다 */
+        function scrollable() { return track.scrollWidth - track.clientWidth > 4; }
+
+        /* offsetLeft 는 트랙이 아니라 "위치 지정된 조상" 기준이라 트랙이 static 이면 어긋난다.
+           어긋난 목표는 스냅 지점이 아니어서 브라우저가 도로 제자리로 당겨 버린다.
+           트랙 기준 좌표로 직접 재서 정확한 스냅 지점을 넘긴다. */
+        function centerOf(card) {
+            var d = card.getBoundingClientRect().left - track.getBoundingClientRect().left;
+            return track.scrollLeft + d + card.offsetWidth / 2 - track.clientWidth / 2;
+        }
+
+        function current() {
+            var best = 0, min = Infinity;
+            cards.forEach(function (c, i) {
+                var d = Math.abs(centerOf(c) - track.scrollLeft);
+                if (d < min) { min = d; best = i; }
+            });
+            return best;
+        }
+
+        var restore = null;
+        function tick() {
+            if (!scrollable() || document.hidden || Date.now() < holdUntil) return;
+            var to = (current() + 1) % cards.length;
+            /* mandatory 스냅이 걸린 채로 프로그램에서 굴리면 브라우저가 스냅 지점으로
+               도로 당겨 버려 제자리에 머무는 일이 있다. 굴리는 동안만 스냅을 꺼 둔다.
+               (손으로 넘길 때는 스냅이 있어야 한 장씩 딱 선다) */
+            track.style.scrollSnapType = "none";
+            /* 마지막에서 첫 장으로 갈 때는 길게 되감지 않고 바로 붙인다 */
+            track.scrollTo({ left: centerOf(cards[to]), behavior: to === 0 ? "auto" : "smooth" });
+            clearTimeout(restore);
+            restore = setTimeout(function () { track.style.scrollSnapType = ""; }, 800);
+        }
+
+        /* 손이 닿으면 잠시 멈춘다 — 직접 넘기는 중에 끼어들면 성가시다 */
+        function hold() { holdUntil = Date.now() + 6000; }
+        ["pointerdown", "touchstart", "wheel"].forEach(function (ev) {
+            track.addEventListener(ev, hold, { passive: true });
+        });
+
+        setInterval(tick, 3500);
+    })();
+
     /* ---------- 문의·협업 폼 (Web3Forms) ---------- */
     var form = document.getElementById("contactForm");
     if (!form) return;
