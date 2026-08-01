@@ -45,7 +45,11 @@
             <div class="container">
                 <p class="comm-pill">청년들과 함께하는 소셜 다이닝</p>
                 <div class="comm-hero-photo">
-                    <img class="cloud" src="/img/comm-hero-cloud.webp" alt="청년들이 함께 요리하고 나누는 소셜 다이닝 식탁" fetchpriority="high">
+                    <!-- 구름 마스크 모양이 데스크톱(2.03:1)과 모바일(1.58:1)에서 다르다 (Figma 3414:10431) -->
+                    <picture>
+                        <source media="(max-width: 760px)" srcset="/img/comm-hero-cloud-mobile.png">
+                        <img class="cloud" src="/img/comm-hero-cloud.webp" alt="청년들이 함께 요리하고 나누는 소셜 다이닝 식탁" fetchpriority="high">
+                    </picture>
                     <img class="veg veg-tomato" src="/img/veg-tomato.webp" alt="" aria-hidden="true">
                     <img class="veg veg-beet" src="/img/veg-beet.webp" alt="" aria-hidden="true">
                     <img class="veg veg-carrot" src="/img/veg-carrot.webp" alt="" aria-hidden="true">

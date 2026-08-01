@@ -507,11 +507,43 @@ ul { list-style: none; }
     :root { --header-h: 64px; }
     /* 모바일: 62.1vw면 구름 사진이 너무 작아지므로 폭을 키우고,
        대신 채소 컷아웃을 안쪽으로 당겨 화면 밖으로 잘리지 않게 한다. */
-    .comm-hero-photo { width: 76vw; }
-    .comm-pill { width: clamp(230px, 52vw, 420px); font-size: clamp(15px, 3.4vw, 28px); }
-    .veg-tomato { top: -17%; left: -9%; width: 22%; }
-    .veg-beet { top: 58%; left: -13%; width: 24%; }
-    .veg-carrot { top: 14%; right: -12%; width: 28%; }
+    /* ---- 오프라인 서비스 (Figma 03_오프라인서비스_360 / 3414:10428) ----
+       히어로는 360×360. 알약 291×44 를 y=59 에, 구름 사진 320 을 y=66.15 에 놓고
+       채소 컷아웃 3개는 섹션 좌표로 배치한다.
+       사진을 static 으로 만들어 채소가 .container(=화면 폭) 기준으로 잡히게 한다. */
+    .comm-hero { padding: 16.39vw 0 25.25vw; }          /* Figma 59 / 90.9 */
+    .comm-pill {
+        width: 80.83vw;                                  /* Figma 291 */
+        margin: 0 auto -10.24vw;                         /* 사진이 알약 아래 36.85 를 덮는다 */
+        font-size: 20px;
+    }
+    .comm-hero-photo { position: static; width: 88.89vw; }   /* Figma 320, 가운데 = x20 */
+    .veg-tomato { left: -4.17vw;  top: -18.61vw; width: 27.78vw; }   /* Figma 100 @-15,-8 */
+    .veg-beet   { left: -7.78vw;  top:  31.11vw; width: 51.99vw; }   /* Figma 187 @-28,171 */
+    .veg-carrot { left: 67.22vw;  top:  20.56vw; width: 46.58vw; right: auto; }  /* Figma 168 @242,133 */
+
+    /* 본문 3개: 글 위 / 그림 아래, 섹션 위아래 60, 사이 20 */
+    .comm-sec { padding: 60px 0; }
+    .comm-sec .row { flex-direction: column; align-items: stretch; gap: 20px; }
+    /* 가로 배치용 flex-basis(340/824/1074)가 세로로 바뀌면 "높이"로 읽혀
+       글 블록이 340px 가 된다. 세로에서는 전부 내용만큼만 차지하게 푼다. */
+    .comm-sec .row > * { flex: none; max-width: none; min-width: 0; }
+    .comm-sec .row .txt { order: 1; }
+    .comm-sec .row .media, .comm-sec .row .comm-trio { order: 2; }
+    .comm-sec .txt h2 { font-size: 20px; }
+    .comm-sec .txt p { font-size: 14px; line-height: 1.532; margin-top: 16px; }
+    .comm-sec .media { flex: none; }
+    .comm-photo { aspect-ratio: auto; height: 210px; border-radius: 24px; }
+
+    /* 3장 썸네일: Figma 는 253.5 카드를 가운데 정렬로 둬 좌우가 잘린다.
+       카드 크기는 Figma 대로 두고 가로 스크롤로 셋 다 닿게 한다. */
+    .comm-sec .row.trio-row .comm-trio {
+        overflow-x: auto; gap: 22.5px; scroll-snap-type: x mandatory; scrollbar-width: none;
+    }
+    .comm-sec .row.trio-row .comm-trio::-webkit-scrollbar { display: none; }
+    .comm-trio figure { flex: 0 0 70.42vw; scroll-snap-align: start; }   /* Figma 253.5 */
+    .comm-trio .comm-photo { height: auto; aspect-ratio: 1 / 1; border-radius: 15px; }
+    .comm-trio figcaption { font-size: 10px; margin-top: 9px; }
     .nav-menu {
         position: fixed; top: var(--header-h); left: 0; right: 0; margin: 0;
         flex-direction: column; align-items: stretch; gap: 0;
@@ -716,8 +748,22 @@ ul { list-style: none; }
     .about-hero .container { bottom: 28px; }
     .history-year { flex-direction: column; gap: 8px; }
     .history-year .yr { font-size: 20px; }
-    .cf-submit-row { justify-content: stretch; }
-    .cf-submit-row .btn { width: 100%; }
+    /* ---- 문의·협업 (Figma 04_문의/협업_360 / 3414:9459) ----
+       위아래 여백이 32 로 확 줄고, 입력칸·글자도 데스크톱보다 한 단계씩 작다. */
+    .contact-hero { padding: 32px 0; }
+    .contact-hero h1 { font-size: 20px; margin-top: 0; }
+    .contact-hero p { font-size: 15px; line-height: 1.4; margin-top: 16px; }
+    .contact-section { background: #E8E6DF; padding: 32px 0; }
+    .cf-field { margin-bottom: 16px; }
+    .cf-field label { font-size: 13.5px; font-weight: 400; margin-bottom: 8px; }
+    .cf-field input, .cf-field textarea {
+        height: 56px; padding: 14px 16px; border-radius: 14px;
+        border-color: rgba(34, 33, 30, 0.11);
+    }
+    .cf-field textarea { height: auto; min-height: 140px; }
+    .cf-submit-row { justify-content: stretch; gap: 12px; }
+    .cf-submit-row .note { font-size: 12px; }
+    .cf-submit-row .btn { width: 100%; height: 54px; padding: 0 20px; border-radius: 16px; }
     .cf-result { text-align: center; }
 }
 /* Figma 모바일(360)은 인스타를 2×2 로 유지한다 — 1열로 풀면 4장이 세로로 쌓여
