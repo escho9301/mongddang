@@ -158,8 +158,8 @@
     })();
 
     /* ---------- 오프라인 "지역 동아리" 사진 3장 롤링 ----------
-       Figma 모바일은 253.5 카드를 가운데 세우고 양옆 장이 걸쳐 보이게 둔다 = 캐러셀.
-       데스크톱은 셋이 한 줄에 다 보이므로 넘길 것이 없다. */
+       Figma 모바일은 253.5 카드 옆으로 다음 장이 걸쳐 보이게 둔다 = 캐러셀.
+       한 장씩 왼쪽에 세우며 넘긴다. 데스크톱은 셋이 한 줄에 다 보여 넘길 것이 없다. */
     (function () {
         var track = document.querySelector(".comm-trio");
         if (!track) return;
@@ -172,18 +172,18 @@
         /* 가로로 넘칠 때(=모바일)만 돈다 */
         function scrollable() { return track.scrollWidth - track.clientWidth > 4; }
 
-        /* offsetLeft 는 트랙이 아니라 "위치 지정된 조상" 기준이라 트랙이 static 이면 어긋난다.
+        /* 카드가 트랙 왼쪽에 딱 서는 scrollLeft.
+           offsetLeft 는 트랙이 아니라 "위치 지정된 조상" 기준이라 트랙이 static 이면 어긋나고,
            어긋난 목표는 스냅 지점이 아니어서 브라우저가 도로 제자리로 당겨 버린다.
-           트랙 기준 좌표로 직접 재서 정확한 스냅 지점을 넘긴다. */
-        function centerOf(card) {
-            var d = card.getBoundingClientRect().left - track.getBoundingClientRect().left;
-            return track.scrollLeft + d + card.offsetWidth / 2 - track.clientWidth / 2;
+           그래서 트랙 기준 좌표로 직접 잰다. */
+        function posOf(card) {
+            return track.scrollLeft + card.getBoundingClientRect().left - track.getBoundingClientRect().left;
         }
 
         function current() {
             var best = 0, min = Infinity;
             cards.forEach(function (c, i) {
-                var d = Math.abs(centerOf(c) - track.scrollLeft);
+                var d = Math.abs(posOf(c) - track.scrollLeft);
                 if (d < min) { min = d; best = i; }
             });
             return best;
@@ -198,7 +198,7 @@
                (손으로 넘길 때는 스냅이 있어야 한 장씩 딱 선다) */
             track.style.scrollSnapType = "none";
             /* 마지막에서 첫 장으로 갈 때는 길게 되감지 않고 바로 붙인다 */
-            track.scrollTo({ left: centerOf(cards[to]), behavior: to === 0 ? "auto" : "smooth" });
+            track.scrollTo({ left: posOf(cards[to]), behavior: to === 0 ? "auto" : "smooth" });
             clearTimeout(restore);
             restore = setTimeout(function () { track.style.scrollSnapType = ""; }, 800);
         }
