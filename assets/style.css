@@ -469,9 +469,10 @@ ul { list-style: none; }
 /* 무한 롤링용 복제본 — 셋이 한 줄에 다 보이는 데스크톱에서는 필요 없다 */
 .comm-trio .is-clone { display: none; }
 .comm-trio figcaption { text-align: center; font-size: 13px; font-weight: 500; color: var(--gray8); margin-top: 12px; }
-/* Figma 크롭: 기획 사진은 윗부분(3397:8640), 워크숍 사진은 확대(3397:8679 951×634 @-51,-12) */
+/* Figma 크롭: 기획 사진은 윗부분(3397:8640). 워크숍 사진은 얼굴이 안 나오도록 파일 자체를 824:480 으로 잘라 두었다 */
 .comm-photo img[src$="comm-plan.jpg"] { object-position: 50% 25%; }
-.comm-photo img[src$="comm-workshop.jpg"] { transform: scale(1.155); transform-origin: 40% 8%; }
+/* 모바일(320:210)은 cover 로 좌우만 잘리므로 아래 기준으로 둬 위쪽(얼굴)이 다시 보이지 않게 한다 */
+.comm-photo img[src$="comm-workshop.jpg"] { object-position: 50% 100%; }
 
 /* Figma 3397:8671 — 트리오 행은 사진 1074 + 간격 29 + 텍스트 337 로 1440 을 정확히 채운다.
    공용 값(.txt 340, gap 46)을 쓰면 합이 1460 이 되어 20px 넘쳐 텍스트가 아래 줄로 밀린다.
