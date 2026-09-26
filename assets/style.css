@@ -635,14 +635,15 @@ ul { list-style: none; }
     .comm-trio figcaption { font-size: 10px; margin-top: 9px; }
     .nav-menu {
         position: fixed; top: 0; right: 0; left: auto; margin: 0;
-        flex-direction: column; align-items: flex-start; gap: 0;   /* 패널은 오른쪽에 붙고 글은 왼쪽 정렬 (Figma 3414:10770) */
+        flex-direction: column; align-items: stretch; gap: 0;   /* 패널은 오른쪽에 붙고 글은 왼쪽 정렬 (Figma 3414:10770). 항목은 패널 폭만큼 늘려 누르기 쉽게 */
         background: #fff; padding: 52px 20px 20px;   /* 20 + 닫기 아이콘 24 + 8 */
         transform: translateY(-110%); transition: transform .25s ease;
         box-shadow: 0 8px 24px rgba(0,0,0,0.08);
     }
     .nav-menu.open { transform: translateY(0); }
+    /* 누르는 영역: 글자 폭이 아니라 패널 전체 폭(좌우 여백 20 포함). 글자 위치는 그대로 */
     .nav-menu > li > a, .dropdown a {
-        display: flex; align-items: center; height: 40px; padding: 0;
+        display: flex; align-items: center; height: 40px; padding: 0 20px; margin: 0 -20px;
         font-size: 13.5px; font-weight: 500; line-height: 20.25px; color: var(--gray6);
     }
     .nav-menu > li > a.active { color: var(--gray6); }   /* Figma 모바일 메뉴는 현재 페이지도 같은 회색 */
@@ -651,7 +652,7 @@ ul { list-style: none; }
     .has-dropdown > a { display: none !important; }
     .dropdown {
         position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; border: 0;
-        padding: 0; min-width: 0; border-radius: 0; display: flex; flex-direction: column; align-items: flex-start;
+        padding: 0; min-width: 0; border-radius: 0; display: flex; flex-direction: column; align-items: stretch;
     }
     .dropdown::before { display: none; }
     .dropdown a:hover { background: none; color: var(--gray10); }
