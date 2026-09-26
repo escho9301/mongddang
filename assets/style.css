@@ -376,7 +376,7 @@ ul { list-style: none; }
 .svc-hero { background: linear-gradient(180deg, #ffffff 0%, #fff9e8 58%, #fdd76b 100%); padding: clamp(40px, 5vw, 60px) 0 clamp(50px, 6vw, 90px); overflow: hidden; }
 .svc-hero .row { display: flex; align-items: center; justify-content: center; gap: clamp(28px, 5vw, 67px); flex-wrap: wrap; }
 .svc-phone { width: clamp(240px, 32vw, 470px); flex: none; }
-.svc-phone img { width: 100%; height: auto; display: block; }
+.svc-phone img { width: 100%; height: auto; display: block; aspect-ratio: 940 / 1622; object-fit: cover; object-position: top; }
 .svc-hero h1 { font-size: clamp(30px, 4vw, 60px); font-weight: 700; color: var(--ink); line-height: 1.4; letter-spacing: -0.02em; }
 .svc-hero .stores { display: flex; gap: 16px; margin-top: 36px; flex-wrap: wrap; }
 /* Figma 3351:9623: 높이 56, 16/28, 아이콘 20, 10/15 + 13.5/20.25 */
@@ -393,6 +393,10 @@ ul { list-style: none; }
 .svc-feature .row { display: flex; align-items: center; justify-content: center; gap: clamp(32px, 5vw, 64px); flex-wrap: wrap; }
 .svc-feature .fig { flex: none; max-width: 100%; }
 .svc-feature .fig img { width: 100%; height: auto; display: block; }
+/* 사진 비율을 미리 알려 두면 로딩 중에 아래 내용이 밀리지 않는다(CLS) */
+.svc-fig-1 img { aspect-ratio: 964 / 966; }
+.svc-fig-2 img { aspect-ratio: 1176 / 1026; object-fit: cover; }
+.svc-fig-3 img { aspect-ratio: 1106 / 894; }
 .svc-fig-1 { width: clamp(320px, 42vw, 482px); }
 .svc-fig-2 { width: clamp(340px, 50vw, 588px); }
 .svc-fig-3 { width: clamp(320px, 42vw, 482px); }
@@ -444,7 +448,7 @@ ul { list-style: none; }
    컨테이너에 맡기면(=폭을 꽉 채우면) 밖으로 나가는 당근·비트가 화면 밖으로 잘리므로
    뷰포트 대비 비율로 묶어 어느 폭에서도 채소 공간이 함께 줄어들게 한다. */
 .comm-hero-photo { position: relative; z-index: 2; width: min(1193px, 62.1vw); margin: 0 auto; }
-.comm-hero-photo .cloud { width: 100%; height: auto; display: block; }
+.comm-hero-photo .cloud { width: 100%; height: auto; display: block; aspect-ratio: 2000 / 985; object-fit: cover; }   /* 사진이 오기 전에 자리를 잡아 아래가 밀리지 않게(CLS) */
 /* 채소 컷아웃 — 구름 사진 기준 %로 배치(어느 폭에서도 구름에 붙어 겹치게), Figma 좌표 기반 */
 .veg { position: absolute; z-index: 3; pointer-events: none; height: auto; }
 .veg-tomato { top: -24%; left: -17.85%; width: 27.24%; }
@@ -564,6 +568,10 @@ ul { list-style: none; }
 @media (max-width: 760px) {
     :root { --header-h: 64px; }
     .m-br { display: inline; }
+    /* 모바일 전용 사진의 비율 (CLS) */
+    .comm-hero-photo .cloud { aspect-ratio: 960 / 609; }
+    .svc-phone img { aspect-ratio: 942 / 1287; }
+    .svc-fig-2 img { aspect-ratio: 1179 / 1236; }
     /* 헤더 (Figma 3414:8902): 아래 1px #EBEBEB. 아이콘 중심이 x328(=오른쪽 끝에서 12) 이 되도록 버튼을 9px 밖으로 뺀다 */
     .site-header { border-bottom: 1px solid var(--gray2); }
     .nav-toggle { margin-right: -9px; }
