@@ -602,7 +602,7 @@ ul { list-style: none; }
     .comm-trio figcaption { font-size: 10px; margin-top: 9px; }
     .nav-menu {
         position: fixed; top: 0; right: 0; left: auto; margin: 0;
-        flex-direction: column; align-items: flex-end; gap: 0;
+        flex-direction: column; align-items: flex-start; gap: 0;   /* 패널은 오른쪽에 붙고 글은 왼쪽 정렬 (Figma 3414:10770) */
         background: #fff; padding: 52px 20px 20px;   /* 20 + 닫기 아이콘 24 + 8 */
         transform: translateY(-110%); transition: transform .25s ease;
         box-shadow: 0 8px 24px rgba(0,0,0,0.08);
@@ -612,12 +612,13 @@ ul { list-style: none; }
         display: flex; align-items: center; height: 40px; padding: 0;
         font-size: 13.5px; font-weight: 500; line-height: 20.25px; color: var(--gray6);
     }
-    .nav-menu > li > a.active { color: var(--gray10); }
+    .nav-menu > li > a.active { color: var(--gray6); }   /* Figma 모바일 메뉴는 현재 페이지도 같은 회색 */
+    .nav-menu > li > a:hover { color: var(--gray10); }
     /* Figma 모바일 메뉴에는 "서비스" 묶음이 없고 하위 두 개가 바로 나온다 */
     .has-dropdown > a { display: none !important; }
     .dropdown {
         position: static; transform: none; opacity: 1; visibility: visible; box-shadow: none; border: 0;
-        padding: 0; min-width: 0; border-radius: 0; display: flex; flex-direction: column; align-items: flex-end;
+        padding: 0; min-width: 0; border-radius: 0; display: flex; flex-direction: column; align-items: flex-start;
     }
     .dropdown::before { display: none; }
     .dropdown a:hover { background: none; color: var(--gray10); }
@@ -666,6 +667,8 @@ ul { list-style: none; }
     }
     .nav-toggle span::before { top: -3.625px; }
     .nav-toggle span::after { top: 3.625px; }
+    /* 닫기(X)는 Figma material-symbols-light close: 12×12 폭, 1px 선 → 대각선 17px */
+    .nav-toggle.open span::before, .nav-toggle.open span::after { width: 17px; height: 1px; left: -2.04px; }
     .nav-toggle.open span::before { transform: translateY(3.625px) rotate(45deg); }
     .nav-toggle.open span::after { transform: translateY(-3.625px) rotate(-45deg); }
     .hero-band-inner { padding: calc(var(--band-h) * 0.34375) 8px 0; justify-content: flex-start; }   /* Figma 글 위 49.5 / 144 */
