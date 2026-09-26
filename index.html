@@ -14,10 +14,11 @@
     <meta property="og:description" content="혼밥에서 함께 나누는 식탁으로. 음식으로 사람과 지역을 연결하는 식문화 소셜벤처.">
     <meta property="og:image" content="https://www.mongddangsigtag.com/img/summary.png">
     <meta property="og:url" content="https://www.mongddangsigtag.com/">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <!-- 글꼴 CSS 는 렌더링을 막지 않게 비동기로 받는다 (Lighthouse render-blocking 약 2초). 도착 전에는 시스템 글꼴로 먼저 그린다 -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" crossorigin media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+    <link rel="stylesheet" crossorigin media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
     <link rel="stylesheet" href="/assets/style.css">
 
     <!-- 검색엔진에 회사 정보를 구조화해서 알려준다.
@@ -76,9 +77,9 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-photo hero-carousel">
-                    <img class="hero-slide is-active" src="/img/hero-1.png" alt="함께 요리하고 식사하는 몽땅식탁 소셜 다이닝 현장" fetchpriority="high">
-                    <img class="hero-slide" src="/img/hero-2.png" alt="함께 식재료를 손질하는 소셜 다이닝 현장" loading="lazy">
-                    <img class="hero-slide" src="/img/hero-3.png" alt="제철 채소를 손질하며 요리하는 모습" loading="lazy">
+                    <img class="hero-slide is-active" src="/img/hero-1.webp" srcset="/img/hero-1-m.webp 1320w, /img/hero-1.webp 2880w" sizes="(max-width: 760px) 123vw, 1440px" alt="함께 요리하고 식사하는 몽땅식탁 소셜 다이닝 현장" fetchpriority="high">
+                    <img class="hero-slide" data-src="/img/hero-2.webp" alt="함께 식재료를 손질하는 소셜 다이닝 현장" loading="lazy">
+                    <img class="hero-slide" data-src="/img/hero-3.webp" alt="제철 채소를 손질하며 요리하는 모습" loading="lazy">
                     <div class="hero-dots" aria-label="히어로 이미지 인디케이터"></div>
                 </div>
             </div>
@@ -101,17 +102,17 @@
                 </div>
                 <div class="connect-grid">
                     <article class="connect-card">
-                        <div class="connect-blob"><img src="/img/connect-1.png" alt="함께 요리하는 소셜 다이닝"></div>
+                        <div class="connect-blob"><img src="/img/connect-1.webp" srcset="/img/connect-1-m.webp 640w, /img/connect-1.webp 848w" sizes="(max-width: 760px) calc(100vw - 40px), 424px" alt="함께 요리하는 소셜 다이닝"></div>
                         <span class="connect-badge">01 소셜 다이닝</span>
                         <p class="connect-title">함께 요리하고 식사하며 연결되는 따뜻한 한 끼</p>
                     </article>
                     <article class="connect-card">
-                        <div class="connect-blob"><img src="/img/connect-2.png" alt="지역 동아리 텃밭·요리 활동"></div>
+                        <div class="connect-blob"><img src="/img/connect-2.webp" srcset="/img/connect-2-m.webp 640w, /img/connect-2.webp 848w" sizes="(max-width: 760px) calc(100vw - 40px), 424px" alt="지역 동아리 텃밭·요리 활동"></div>
                         <span class="connect-badge">02 지역 동아리</span>
                         <p class="connect-title">요리, 텃밭, 대화로 깊어지는 지역 커뮤니티</p>
                     </article>
                     <article class="connect-card">
-                        <div class="connect-blob"><img src="/img/connect-3.png" alt="온라인 레시피 추천 서비스"></div>
+                        <div class="connect-blob"><img src="/img/connect-3.webp" srcset="/img/connect-3-m.webp 640w, /img/connect-3.webp 848w" sizes="(max-width: 760px) calc(100vw - 40px), 424px" alt="온라인 레시피 추천 서비스"></div>
                         <span class="connect-badge">03 온라인 서비스</span>
                         <p class="connect-title">맞춤형 원팬 요리 추천, 온라인 소셜 다이닝</p>
                     </article>

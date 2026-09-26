@@ -13,10 +13,11 @@
     <meta property="og:title" content="문의·협업 - 몽땅식탁">
     <meta property="og:description" content="지역기관, 공공기관, 기업, 브랜드와의 다양한 협업을 환영합니다.">
     <meta property="og:image" content="https://www.mongddangsigtag.com/img/summary.png">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <!-- 글꼴 CSS 는 렌더링을 막지 않게 비동기로 받는다 (Lighthouse render-blocking 약 2초). 도착 전에는 시스템 글꼴로 먼저 그린다 -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" crossorigin media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+    <link rel="stylesheet" crossorigin media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>

@@ -13,10 +13,11 @@
     <meta property="og:title" content="몽땅식탁 소개">
     <meta property="og:description" content="음식으로 연결되는 사회를 꿈꿉니다. 건강한 식문화를 중심으로 고립을 예방하고 커뮤니티를 만듭니다.">
     <meta property="og:image" content="https://www.mongddangsigtag.com/img/summary.png">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <!-- 글꼴 CSS 는 렌더링을 막지 않게 비동기로 받는다 (Lighthouse render-blocking 약 2초). 도착 전에는 시스템 글꼴로 먼저 그린다 -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" crossorigin media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+    <link rel="stylesheet" crossorigin media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -45,7 +46,7 @@
         <!-- ===== Hero ===== -->
         <section class="about-hero">
             <div class="about-hero-frame">
-                <img src="/img/about-hero.png" alt="함께 요리하며 이야기 나누는 몽땅식탁 커뮤니티" fetchpriority="high">
+                <img src="/img/about-hero.webp" srcset="/img/about-hero-m.webp 1280w, /img/about-hero.webp 2400w" sizes="(max-width: 760px) 170vw, 100vw" alt="함께 요리하며 이야기 나누는 몽땅식탁 커뮤니티" fetchpriority="high">
             </div>
             <div class="container">
                 <h1>음식으로 연결되는 사회를 꿈꿉니다.<br>건강한 식문화를 중심으로<br class="m-br"> 고립을 예방하고,<br>커뮤니티를 만듭니다.</h1>

@@ -35,7 +35,15 @@
         var DELAY = 3000;
         var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+        /* 2·3번 슬라이드는 처음엔 안 보이므로 data-src 로 두고 페이지 로드가 끝난 뒤에 받는다.
+           첫 화면 사진(LCP)과 대역폭을 다투지 않게 하려는 것. 그 전에 넘기면 그때 바로 받는다. */
+        function load(s) { if (s.dataset.src && !s.getAttribute("src")) s.src = s.dataset.src; }
+        function loadRest() { slides.forEach(load); }
+        if (document.readyState === "complete") loadRest();
+        else window.addEventListener("load", loadRest);
+
         function show(n) {
+            load(slides[(n + slides.length) % slides.length]);
             slides[idx].classList.remove("is-active");
             if (dots[idx]) dots[idx].classList.remove("is-active");
             idx = (n + slides.length) % slides.length;

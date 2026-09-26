@@ -13,10 +13,11 @@
     <meta property="og:title" content="오프라인 서비스 - 몽땅식탁">
     <meta property="og:description" content="함께 요리하고 나누는 소셜 다이닝과 지역 동아리 — 오프라인에서 만드는 식문화 커뮤니티.">
     <meta property="og:image" content="https://www.mongddangsigtag.com/img/summary.png">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
-    <link rel="stylesheet" as="style" crossorigin
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+    <!-- 글꼴 CSS 는 렌더링을 막지 않게 비동기로 받는다 (Lighthouse render-blocking 약 2초). 도착 전에는 시스템 글꼴로 먼저 그린다 -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" crossorigin media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css">
+    <link rel="stylesheet" crossorigin media="print" onload="this.media='all'" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+    <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/wanteddev/wanted-sans@v1.0.3/packages/wanted-sans/fonts/webfonts/variable/split/WantedSansVariable.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
     <link rel="stylesheet" href="/assets/style.css">
 </head>
 <body>
@@ -49,12 +50,12 @@
                 <div class="comm-hero-photo">
                     <!-- 구름 마스크 모양이 데스크톱(2.03:1)과 모바일(1.58:1)에서 다르다 (Figma 3414:10431) -->
                     <picture>
-                        <source media="(max-width: 760px)" srcset="/img/comm-hero-cloud-mobile.png">
+                        <source media="(max-width: 760px)" srcset="/img/comm-hero-cloud-mobile.webp">
                         <img class="cloud" src="/img/comm-hero-cloud.webp" alt="청년들이 함께 요리하고 나누는 소셜 다이닝 식탁" fetchpriority="high">
                     </picture>
-                    <img class="veg veg-tomato" src="/img/veg-tomato.webp" alt="" aria-hidden="true">
-                    <img class="veg veg-beet" src="/img/veg-beet.webp" alt="" aria-hidden="true">
-                    <img class="veg veg-carrot" src="/img/veg-carrot.webp" alt="" aria-hidden="true">
+                    <img class="veg veg-tomato" src="/img/veg-tomato.webp" srcset="/img/veg-tomato-m.webp 400w, /img/veg-tomato.webp 413w" sizes="(max-width: 760px) 28vw, 17vw" alt="" aria-hidden="true">
+                    <img class="veg veg-beet" src="/img/veg-beet.webp" srcset="/img/veg-beet-m.webp 400w, /img/veg-beet.webp 749w" sizes="(max-width: 760px) 52vw, 20vw" alt="" aria-hidden="true">
+                    <img class="veg veg-carrot" src="/img/veg-carrot.webp" srcset="/img/veg-carrot-m.webp 400w, /img/veg-carrot.webp 733w" sizes="(max-width: 760px) 47vw, 24vw" alt="" aria-hidden="true">
                 </div>
             </div>
         </section>
@@ -67,7 +68,7 @@
                         <h2>소셜 다이닝 등 커뮤니티<br>프로그램 기획/운영</h2>
                         <p>서울/경기도 권역 청년센터와 협업하여<br>청년들과 함께하는 소셜 다이닝 프로그램을<br class="m-br"> 기획하고 운영합니다.</p>
                     </div>
-                    <div class="media"><div class="comm-photo"><img src="/img/comm-plan.jpg" alt="소셜 다이닝 프로그램을 기획하는 모습" loading="lazy"></div></div>
+                    <div class="media"><div class="comm-photo"><img src="/img/comm-plan.jpg" srcset="/img/comm-plan-m.jpg 720w, /img/comm-plan.jpg 1200w" sizes="(max-width: 760px) calc(100vw - 40px), 824px" alt="소셜 다이닝 프로그램을 기획하는 모습" loading="lazy"></div></div>
                 </div>
             </div>
         </section>
@@ -78,15 +79,15 @@
                 <div class="row trio-row">
                     <div class="comm-trio">
                         <figure>
-                            <div class="comm-photo"><img src="/img/comm-dining.jpg" alt="함께 요리하고 식사하며 대화하는 모습" loading="lazy"></div>
+                            <div class="comm-photo"><img src="/img/comm-dining.jpg" srcset="/img/comm-dining-m.jpg 640w, /img/comm-dining.jpg 900w" sizes="(max-width: 760px) 71vw, 338px" alt="함께 요리하고 식사하며 대화하는 모습" loading="lazy"></div>
                             <figcaption>요리 &amp; 식사 &amp; 대화</figcaption>
                         </figure>
                         <figure>
-                            <div class="comm-photo"><img src="/img/comm-garden.jpg" alt="텃밭을 가꾸는 모습" loading="lazy"></div>
+                            <div class="comm-photo"><img src="/img/comm-garden.jpg" srcset="/img/comm-garden-m.jpg 560w, /img/comm-garden.jpg 675w" sizes="(max-width: 760px) 71vw, 338px" alt="텃밭을 가꾸는 모습" loading="lazy"></div>
                             <figcaption>텃밭 가꾸기</figcaption>
                         </figure>
                         <figure>
-                            <div class="comm-photo"><img src="/img/comm-ingredients.jpg" alt="제철 식재료를 탐구하는 모습" loading="lazy"></div>
+                            <div class="comm-photo"><img src="/img/comm-ingredients.jpg" srcset="/img/comm-ingredients-m.jpg 640w, /img/comm-ingredients.jpg 900w" sizes="(max-width: 760px) 71vw, 338px" alt="제철 식재료를 탐구하는 모습" loading="lazy"></div>
                             <figcaption>제철 식재료 탐구</figcaption>
                         </figure>
                     </div>
@@ -106,7 +107,7 @@
                         <h2>식문화 관련 다양한 활동 기획</h2>
                         <p>식재료를 탐구하고, 요리하고, 함께 나누는<br>참여형 식문화 프로그램을 기획하고 운영합니다.</p>
                     </div>
-                    <div class="media"><div class="comm-photo"><img src="/img/comm-workshop.jpg" alt="참여형 식문화 워크숍 현장" loading="lazy"></div></div>
+                    <div class="media"><div class="comm-photo"><img src="/img/comm-workshop.jpg" srcset="/img/comm-workshop-m.jpg 720w, /img/comm-workshop.jpg 1648w" sizes="(max-width: 760px) calc(100vw - 40px), 824px" alt="참여형 식문화 워크숍 현장" loading="lazy"></div></div>
                 </div>
             </div>
         </section>
