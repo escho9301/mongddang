@@ -95,7 +95,7 @@ ul { list-style: none; }
 .btn-yellow:hover { background: var(--point-strong); transform: translateY(-1px); }
 .btn-dark { background: var(--ink); color: var(--btn-text); }
 .btn-dark:hover { background: #000; transform: translateY(-1px); }
-.btn .arrow { font-size: 1.1em; line-height: 0; }
+.btn .arrow { width: 16px; height: 16px; flex: none; }   /* Figma 3382:10755 16px 선 화살표 */
 .btn[disabled] { opacity: .6; cursor: not-allowed; }
 
 /* ==========================================================================
@@ -164,16 +164,16 @@ ul { list-style: none; }
 .footer-top { display: flex; justify-content: space-between; gap: 44px 32px; flex-wrap: wrap; min-height: 196px; }
 .f-brand { display: flex; gap: 28px; max-width: 430px; }
 .f-logo { padding-top: 4px; }
-.f-logo img { width: 120px; height: auto; filter: brightness(0) invert(0.6); }
+.f-logo img { width: 120px; height: auto; }   /* logo-footer.svg = Figma 3382:11115 (글자 #8A8A8A, 방울 #AAAAAA) */
 .f-desc { font-size: 14px; color: var(--gray8); line-height: 1.625; }
 .f-contact dl { display: grid; grid-template-columns: auto auto; column-gap: 12px; row-gap: 16px; align-items: start; }
 .f-contact dt { color: var(--gray5); font-size: 14px; font-weight: 500; line-height: 20px; white-space: nowrap; }
 .f-contact dd { color: var(--gray5); font-size: 14px; font-weight: 400; line-height: 20px; }
 .f-contact dd a:hover { color: var(--gray9); text-decoration: underline; }
-.f-nav { display: flex; flex-direction: column; gap: 16px; }
+.f-nav { display: flex; flex-direction: column; gap: 18px; }   /* Figma 3382:11145: 항목 간격 38 (20 + 18) */
 .f-nav a { color: var(--gray5); font-size: 14px; font-weight: 500; line-height: 20px; }
 .f-nav a:hover { color: var(--gray9); }
-.f-legal { display: flex; flex-direction: column; gap: 16px; }
+.f-legal { display: flex; flex-direction: column; gap: 18px; }
 .f-legal a { color: var(--gray5); font-size: 14px; font-weight: 500; line-height: 20px; }
 .f-legal a:hover { color: var(--gray9); }
 .f-sns { display: flex; gap: 12px; margin-top: 36px; }
@@ -233,7 +233,8 @@ ul { list-style: none; }
 .home-connect { background-color: var(--soft-yellow); background-image: url("../img/connect-pattern-figma.svg"); background-repeat: no-repeat; background-position: center; background-size: cover; padding: clamp(70px, 8.82vw, 134px) 0 clamp(62px, 7.76vw, 118px); }
 .home-connect .head { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; margin-bottom: 60px; }
 .connect-grid { display: flex; justify-content: space-between; gap: 40px; }
-.connect-card { flex: 1; display: flex; flex-direction: column; align-items: center; max-width: 424px; margin: 0 auto; }
+/* Figma 3382:10579 space-between: 양 끝 카드가 컨테이너 끝(240/1680)에 붙는다 — auto 마진을 주면 안쪽으로 15px 씩 들어온다 */
+.connect-card { flex: 0 1 424px; display: flex; flex-direction: column; align-items: center; max-width: 424px; margin: 0; }
 .connect-blob { width: 100%; aspect-ratio: 424 / 380; }
 .connect-blob img { width: 100%; height: 100%; object-fit: contain; }
 .connect-badge {
@@ -255,6 +256,10 @@ ul { list-style: none; }
 .arc-platform svg { width: 16px; height: 16px; }
 .arc-more { display: inline-flex; align-items: center; gap: 4px; font-size: 12.5px; font-weight: 600; color: var(--gray10); }
 .arc-more:hover { color: var(--point-strong); }
+/* '보기' 아이콘: 데스크톱은 14px 꺾쇠(3382:10621), 모바일은 14px 화살표(3414:8957) */
+.arc-ico { display: inline-flex; }
+.arc-ico svg { width: 14px; height: 14px; }
+.arc-ico .ico-m { display: none; }
 
 .insta-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
 .insta-card .thumb { aspect-ratio: 1; border-radius: 16px; overflow: hidden; background: var(--card-beige); }
@@ -270,7 +275,7 @@ ul { list-style: none; }
     aspect-ratio: 710 / 399; border-radius: 20px; overflow: hidden; position: relative; background: #ddd;
 }
 .yt-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
-.yt-card .thumb::after { content: ""; position: absolute; inset: 0; background: rgba(34,33,30,0.25); }
+.yt-card .thumb::after { content: ""; position: absolute; inset: 0; background: rgba(34,33,30,0.2); }   /* 데스크톱 .20 / 모바일 .25 (Figma) */
 /* 자리 재생 중에는 딤 오버레이를 걷는다 — 안 걷으면 영상이 어두워지고 클릭도 가로챈다 */
 .yt-card .thumb.is-playing::after { display: none; }
 .yt-card .thumb iframe { width: 100%; height: 100%; border: 0; display: block; }
@@ -337,7 +342,7 @@ ul { list-style: none; }
 /* ----- Collaboration CTA (함께 건강한 식문화를 만들어요) ----- */
 .home-collab { padding: clamp(70px, 7.9vw, 120px) 0; }
 .collab-banner {
-    background: var(--point); border-radius: clamp(40px, 6vw, 999px);
+    background: var(--point); border-radius: clamp(40px, 7.9vw, 120px);   /* Figma 999 = 높이 240 의 반원 */
     padding: clamp(40px, 5vw, 56px) clamp(32px, 8vw, 120px);
     display: flex; align-items: center; justify-content: space-between; gap: 32px; flex-wrap: wrap;
 }
@@ -358,12 +363,12 @@ ul { list-style: none; }
 
 .about-history { padding: clamp(70px, 7.9vw, 120px) 0; }
 .history-row { display: flex; gap: clamp(40px, 10vw, 152px); }
-.history-row > h2 { font-size: clamp(28px, 2.6vw, 37px); font-weight: 700; line-height: 36px; color: var(--ink); flex: none; width: 93px; }
+.history-row > h2 { font-size: clamp(28px, 2.6vw, 37px); font-weight: 700; line-height: 36px; letter-spacing: 0; color: var(--ink); flex: none; width: 93px; }
 .history-list { display: flex; flex-direction: column; gap: 47px; max-width: 702px; flex: 1; }
 .history-year { display: flex; gap: clamp(24px, 4.34vw, 66px); }
-.history-year .yr { font-size: 24px; font-weight: 700; line-height: 24px; color: var(--ink); flex: none; min-width: 60px; }
+.history-year .yr { font-size: 24px; font-weight: 700; line-height: 24px; letter-spacing: 0; color: var(--ink); flex: none; min-width: 60px; }
 .history-year ul { display: flex; flex-direction: column; gap: 16px; }
-.history-year ul li { font-size: 15px; font-weight: 400; color: var(--gray9); line-height: 2; }
+.history-year ul li { font-size: 15px; font-weight: 400; color: var(--gray9); line-height: 2; letter-spacing: 0; }
 
 /* ==========================================================================
    서비스 (service)
@@ -378,7 +383,9 @@ ul { list-style: none; }
 .store-btn { display: inline-flex; align-items: center; gap: 12px; background: var(--ink); color: var(--btn-text); border-radius: 16px; height: 56px; padding: 16px 28px; }
 .store-btn svg { width: 20px; height: 20px; flex: none; }
 .store-btn .st { display: flex; flex-direction: column; text-align: left; }
-.store-btn .sm { font-size: 10px; line-height: 15px; color: rgba(255,253,248,0.55); }
+.store-btn .sm { font-size: 10px; font-weight: 500; line-height: 15px; color: rgba(255,253,248,0.55); }
+.store-btn { transition: opacity .12s ease; }
+.store-btn:hover { opacity: .85; }
 .store-btn .lg { font-size: 13.5px; line-height: 20.25px; font-weight: 600; }
 
 .svc-feature { padding: clamp(70px, 8vw, 120px) 0; background: var(--btn-text); overflow: hidden; }
@@ -471,6 +478,9 @@ ul { list-style: none; }
 .comm-trio figcaption { text-align: center; font-size: 13px; font-weight: 500; color: var(--gray8); margin-top: 12px; }
 /* Figma 크롭: 기획 사진은 윗부분(3397:8640). 워크숍 사진은 얼굴이 안 나오도록 파일 자체를 824:480 으로 잘라 두었다 */
 .comm-photo img[src$="comm-plan.jpg"] { object-position: 50% 25%; }
+.comm-trio img[src$="comm-dining.jpg"]      { transform: scale(1.107); transform-origin: 26% 63%; }
+.comm-trio img[src$="comm-garden.jpg"]      { transform: scale(1.33);  transform-origin: 86% 50%; }
+.comm-trio img[src$="comm-ingredients.jpg"] { transform: scale(1.125); transform-origin: 18% 0; }
 /* 모바일(320:210)은 cover 로 좌우만 잘리므로 아래 기준으로 둬 위쪽(얼굴)이 다시 보이지 않게 한다 */
 .comm-photo img[src$="comm-workshop.jpg"] { object-position: 50% 100%; }
 
@@ -532,7 +542,7 @@ ul { list-style: none; }
    ========================================================================== */
 @media (max-width: 1024px) {
     .connect-grid { flex-wrap: wrap; }
-    .connect-card { flex: 1 1 40%; }
+    .connect-card { flex: 1 1 40%; margin: 0 auto; }
     /* 좁은 화면에서는 nowrap 을 풀어 사진 3장 위 / 텍스트 아래로 쌓는다.
        그대로 두면 텍스트 칸이 23% 로 눌려 한 글자씩 끊긴다. */
     .comm-sec .row.trio-row { flex-wrap: wrap; }
@@ -554,6 +564,20 @@ ul { list-style: none; }
 @media (max-width: 760px) {
     :root { --header-h: 64px; }
     .m-br { display: inline; }
+    /* 헤더 (Figma 3414:8902): 아래 1px #EBEBEB. 아이콘 중심이 x328(=오른쪽 끝에서 12) 이 되도록 버튼을 9px 밖으로 뺀다 */
+    .site-header { border-bottom: 1px solid var(--gray2); }
+    .nav-toggle { margin-right: -9px; }
+    .arc-ico .ico-d { display: none; }
+    .arc-ico .ico-m { display: inline; }
+    .yt-card .thumb::after { background: rgba(34,33,30,0.25); }
+    /* 연혁 연도 글상자 17 (3414:9103) */
+    .history-year .yr { line-height: 17px; }
+    /* 오프라인: 지역 동아리 글↔사진 20 (3414:10577) — 데스크톱 trio-row gap 이 더 구체적이라 여기서 다시 준다 */
+    .comm-sec .row.trio-row { gap: 20px; }
+    /* 온라인 히어로 제목색 (3414:10073) */
+    .svc-hero h1 { color: var(--gray10); }
+    /* 문의 (3414:10667): 제목 글상자 32 */
+    .contact-hero h1 { line-height: 32px; }
     /* 모바일: 62.1vw면 구름 사진이 너무 작아지므로 폭을 키우고,
        대신 채소 컷아웃을 안쪽으로 당겨 화면 밖으로 잘리지 않게 한다. */
     /* ---- 오프라인 서비스 (Figma 03_오프라인서비스_360 / 3414:10428) ----
@@ -633,6 +657,9 @@ ul { list-style: none; }
        ------------------------------------------------------------------ */
     .home-connect, .home-archive, .home-results,
     .home-partners, .home-collab { padding: 60px 0; }
+    /* Figma: 연결 섹션 배경 1276 / 아카이브 뒤 20 흰 여백 */
+    .home-connect { padding-bottom: 71px; }
+    .home-archive { padding-bottom: 80px; }
     .home-connect .section-title, .home-archive .section-title,
     .home-results .section-title, .home-partners .section-title { font-size: 20px; line-height: 32px; }
     .home-connect .head, .home-archive .head, .results-head .head, .home-partners .head { gap: 0; }
@@ -846,7 +873,6 @@ ul { list-style: none; }
     .contact-hero p { font-size: 15px; line-height: 1.4; margin-top: 16px; }
     .contact-section { padding: 32px 0; }
     .cf-field { margin-bottom: 16px; }
-    .cf-field label { margin-bottom: 8px; }
     .cf-field textarea { min-height: 160px; }
     .cf-submit-row { justify-content: stretch; gap: 12px; }
     .cf-submit-row .note { font-size: 12px; }
