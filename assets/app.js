@@ -50,8 +50,16 @@
             slides[idx].classList.add("is-active");
             if (dots[idx]) dots[idx].classList.add("is-active");
         }
-        function nextSlide() { show(idx + 1); }
-        function start() { if (!reduce && !timer) timer = setInterval(nextSlide, DELAY); }
+        /* 다음 사진이 아직 안 받아졌으면 이번 차례는 건너뛴다.
+           느린 회선에서 빈 슬라이드가 보이거나, 늦게 뜬 사진이 LCP 로 잡히는 것을 막는다. */
+        function ready(s) { return s.complete && s.naturalWidth > 0; }
+        function nextSlide() {
+            var n = (idx + 1) % slides.length;
+            if (!ready(slides[n])) { load(slides[n]); return; }
+            show(n);
+        }
+        var firstReady = false;
+        function start() { if (firstReady && !reduce && !timer) timer = setInterval(nextSlide, DELAY); }
         function stop() { if (timer) { clearInterval(timer); timer = null; } }
 
         if (dotsWrap) {
@@ -72,7 +80,10 @@
             if (document.hidden) { stop(); } else { start(); }
         });
 
-        start();
+        /* 첫 사진이 다 뜬 뒤에야 넘기기 시작한다 */
+        function onFirst() { firstReady = true; start(); }
+        if (ready(slides[0])) onFirst();
+        else { slides[0].addEventListener("load", onFirst); slides[0].addEventListener("error", onFirst); }
     })();
 
     /* ---------- 주요 파트너 로고 롤링(마퀴) ---------- */

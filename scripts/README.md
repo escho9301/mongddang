@@ -62,16 +62,12 @@ curl -s "https://graph.instagram.com/me/media?fields=id,permalink&limit=1&access
 `.github/` 가 `main` 에 올라가야 Actions가 인식한다. 푸시한 뒤:
 
 **Actions 탭 → "홈 인스타그램 최신 게시물 자동 갱신" → Run workflow** 로 수동 실행해 본다.
-성공하면 `index.html` 과 `img/ig-1~4.jpg` 를 갱신하는 커밋이 봇 이름으로 하나 올라온다.
+성공하면 `index.html` 과 `img/ig-1~4.webp`(+ 모바일용 `ig-N-m.webp`)를 갱신하는 커밋이 봇 이름으로 하나 올라온다.
 
-### 6. 자리잡은 뒤 옛 이미지 정리
+### 6. 옛 이미지 정리
 
-첫 실행이 성공하면 HTML이 `img/ig-N.jpg` 를 가리키므로 placeholder였던
-`img/ig-1~4.png` 는 더 이상 쓰이지 않는다. 확인 후 지우면 된다.
-
-```bash
-git rm img/ig-1.png img/ig-2.png img/ig-3.png img/ig-4.png
-```
+스크립트가 새 WebP 를 만들면 같은 번호의 예전 `img/ig-N.jpg` 는 알아서 지우고,
+워크플로가 그 삭제까지 커밋한다. 따로 할 일은 없다.
 
 ---
 
@@ -96,7 +92,9 @@ const PINNED = (process.env.IG_PINNED ?? "DaJ7tkYTH5m,CyNZPfivx_X")
 - **이미지를 저장소에 받아둔다.** 인스타 `media_url` 은 서명된 임시 CDN 주소라 며칠이면 만료된다.
   유튜브 썸네일(`i.ytimg.com/vi/{id}/...`)처럼 주소를 박아둘 수 없다.
 - **HTML이 바뀔 때만 이미지를 내려받는다.** 6시간마다 같은 사진을 다시 커밋하면 저장소가 계속 커진다.
-- **워크플로가 800px로 줄여 커밋한다.** 카드 표시 폭이 ~330px이라 2x 디스플레이에도 충분하다.
+- **스크립트가 정사각형 WebP 두 벌로 줄여 저장한다.** 카드는 가운데 정사각형(데스크톱 345px / 모바일 154px)만
+  보여주므로 미리 잘라 690px·320px(각 2x)로 만든다. ImageMagick(`magick`/`convert`)을 쓰며, 워크플로가
+  없으면 설치한다. 로컬에서 ImageMagick 없이 돌리면 원본 JPG 한 장으로 저장된다(사이트는 안 깨짐).
 - **캡션은 원문을 쓰되** 공백을 정리하고, 본문 끝에 몰아 단 해시태그 덩어리를 걷어낸 뒤 80자에서 자른다.
   (문장 중간의 해시태그는 본문의 일부라 남긴다. 캡션이 해시태그뿐이면 원문 그대로 둔다.)
   카드 CSS에 `-webkit-line-clamp: 2` 가 걸려 있어 화면에서는 2줄로 한 번 더 잘린다.

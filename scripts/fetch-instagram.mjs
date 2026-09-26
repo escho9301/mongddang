@@ -1,5 +1,5 @@
 // 몽땅식탁 인스타그램의 최신 게시물 4개를 Instagram Graph API에서 가져와
-// index.html 의 <!-- IG:START --> ~ <!-- IG:END --> 구간과 img/ig-1~4.jpg 를 갱신한다.
+// index.html 의 <!-- IG:START --> ~ <!-- IG:END --> 구간과 img/ig-1~4.webp(+ -m.webp) 를 갱신한다.
 // 의존성 없음(Node 18+ 내장 fetch 사용). GitHub Actions에서 주기적으로 실행됨.
 //
 //   IG_TOKEN=<장기 액세스 토큰> node scripts/fetch-instagram.mjs
@@ -13,7 +13,11 @@
 // 토큰이 없거나 API가 실패하면 아무것도 건드리지 않고 종료한다(=현재 카드 유지).
 // 사이트가 깨지는 일은 없고, 갱신만 멈춘다.
 
-import { readFile, writeFile } from "node:fs/promises";
+import { readFile, writeFile, unlink } from "node:fs/promises";
+import { execFileSync } from "node:child_process";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 
 const TOKEN = process.env.IG_TOKEN;
 const COUNT = 4; // .insta-grid 는 4칸(데스크톱)
@@ -33,6 +37,19 @@ const IMG_DIR = new URL("../img/", import.meta.url);
 const START = "<!-- IG:START (자동 생성 — .github/workflows/instagram.yml / scripts/fetch-instagram.mjs) -->";
 const END = "<!-- IG:END -->";
 const IND = " ".repeat(24); // insta-grid 내부 들여쓰기
+
+/* 카드 썸네일은 정사각형(aspect-ratio:1, object-fit:cover)으로 데스크톱 345px / 모바일 154px 에 보인다.
+   원본(1080px 안팎, JPG 200KB+)을 그대로 두면 홈 모바일 Lighthouse LCP 를 끌어내린다.
+   → CSS 가 보여주는 가운데 정사각형을 미리 잘라 2x 크기 WebP 두 벌(690 / 320)로 저장한다.
+   ImageMagick(magick=v7, convert=v6)이 없으면 예전처럼 원본 JPG 한 장으로 저장해 사이트는 안 깨진다. */
+const SIZES = [["", 690], ["-m", 320]];
+function findImageMagick() {
+  for (const bin of ["magick", "convert"]) {
+    try { execFileSync(bin, ["-version"], { stdio: "ignore" }); return bin; } catch { /* 다음 후보 */ }
+  }
+  return null;
+}
+const IM = findImageMagick();
 
 const reEsc = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
 const htmlEsc = (s) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
@@ -95,14 +112,17 @@ async function pickImage(m) {
 }
 
 function card(p, i) {
-  const file = `img/ig-${i + 1}.jpg`;
+  const base = `/img/ig-${i + 1}`;
   const cap = caption(p.caption);
   // 파일명이 고정이라 내용이 바뀌어도 브라우저가 옛 이미지를 쓸 수 있다 → 게시물 id로 캐시 무효화
   const v = p.id.slice(-8);
   const alt = attrEsc(cap || "몽땅식탁 인스타그램 게시물");
+  const img = IM
+    ? `<img src="${base}.webp?v=${v}" srcset="${base}-m.webp?v=${v} 320w, ${base}.webp?v=${v} 690w" sizes="(max-width: 760px) 44vw, 345px" alt="${alt}" loading="lazy">`
+    : `<img src="${base}.jpg?v=${v}" alt="${alt}" loading="lazy">`;
   return [
     `${IND}<a class="insta-card" href="${attrEsc(p.permalink)}" target="_blank" rel="noopener" data-ig="${attrEsc(p.id)}">`,
-    `${IND}    <div class="thumb"><img src="${file}?v=${v}" alt="${alt}" loading="lazy"></div>`,
+    `${IND}    <div class="thumb">${img}</div>`,
     `${IND}    <p class="date">${fmtDate(p.timestamp)}</p>`,
     `${IND}    <p class="cap">${htmlEsc(cap)}</p>`,
     `${IND}</a>`,
@@ -168,8 +188,26 @@ async function main() {
       return; // 일부만 반영되면 카드와 사진이 어긋나므로 통째로 포기
     }
     const buf = Buffer.from(await res.arrayBuffer());
-    await writeFile(new URL(`ig-${i + 1}.jpg`, IMG_DIR), buf);
+    const name = `ig-${i + 1}`;
+    if (!IM) {
+      await writeFile(new URL(`${name}.jpg`, IMG_DIR), buf);
+      continue;
+    }
+    const src = join(tmpdir(), `${name}-orig`);
+    await writeFile(src, buf);
+    try {
+      for (const [suffix, px] of SIZES) {
+        const out = fileURLToPath(new URL(`${name}${suffix}.webp`, IMG_DIR));
+        execFileSync(IM, [src, "-auto-orient", "-thumbnail", `${px}x${px}^`,
+          "-gravity", "center", "-extent", `${px}x${px}`, "-quality", "78", out]);
+      }
+    } catch (e) {
+      console.error(`이미지 변환 실패(${name}) — 변경 없이 종료:`, e.message);
+      return; // HTML 은 아직 안 썼으므로 사이트는 그대로다
+    }
+    await unlink(new URL(`${name}.jpg`, IMG_DIR)).catch(() => {}); // 예전 JPG 정리
   }
+  if (!IM) console.error("ImageMagick 없음 — 원본 JPG 로 저장(용량 큼). 워크플로에서 설치 단계를 확인하세요.");
 
   await writeFile(HTML_FILE, updated);
   console.log("index.html 인스타 카드 갱신 완료:", posts.map((p) => p.permalink).join(" / "));
